@@ -14,5 +14,5 @@ INSERT INTO classes (calendar_cell_id, class_name) values (3, 'B');
 INSERT INTO classes (calendar_cell_id, class_name) values (3, 'C');
 INSERT INTO classes (calendar_cell_id, class_name) values (3, 'D');
 
-INSERT INTO class_details (class_id, student, memo, teaching_unit, learned, good_point, issue, comment) values (1, '阪本穂高', 'aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff');
+INSERT INTO class_details (class_id, student, class_subject, memo, teaching_unit, learned, good_point, issue, comment) values (1, '阪本穂高', 'aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff', 'ggg');
 INSERT INTO class_details (class_id, student) values (2, '工藤史弥');

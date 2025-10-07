@@ -18,6 +18,7 @@ CREATE TABLE class_details (
     id INT PRIMARY KEY AUTO_INCREMENT,
     class_id INT NOT NULL,
     student VARCHAR(255) NOT NULL,
+    class_subject VARCHAR(255),
     memo VARCHAR(255),
     teaching_unit VARCHAR(255),
     learned VARCHAR(255),

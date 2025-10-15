@@ -1,11 +1,11 @@
 import classNames from "classnames";
-import { useState, type FC, type ReactNode } from "react"
+import { useMemo, useState, type FC, type ReactNode } from "react"
 
 export const usedClassNames = {
     TabField: ["tabField"],
     Header: ["header", "d-flex", "mb-3"],
     Tab: ["tab", "mx-2", "btn", "btn-primary"],
-    ActiveTab: ["activeTab", "mx-2", "btn", "btn-primary"]
+    ActiveTab: ["activeTab", "mx-2", "btn", "btn-warning"]
 }
 
 type TabLabel = string | number
@@ -17,38 +17,46 @@ type TabFieldProps = {
     tabClassName?: string,
 }
 
+/**
+ * タブの情報を保持するクラス.  
+ * `id` は他のタブと重複しないよう, 実装時に自動的に付与される.
+ */
 export class Tab {
     private static nextID = 0;
+    /** タブの固有ID. readonly. */
     readonly id: number;
-    private _content: ReactNode;
+    /** タブが押された際に描画される要素. readonly. */
+    readonly content: ReactNode;
+    /** タブのボタンに表示されるもの. readonly. */
     readonly label: TabLabel;
 
+        /**
+         * コンストラクタ
+         * @param content タブが押された際に描画される要素.
+         * @param label タブのボタンに描画されるもの.
+         */
     constructor(content: ReactNode, label: string){
         this.id = this.createId();
-        this._content = content;
+        this.content = content;
         this.label = label;
     }
 
+    /** 一意のIDを作成して返すメソッド. */
     private createId(): number {
         return Tab.nextID++;
     }
-
-    get node() {
-        return (
-            <>{this._content}</>
-        );
-    }
 }
+
 
 export const TabField: FC<TabFieldProps> = ({ tabs, fieldClassName, headerClassName,tabClassName}) => {
     const [activeTabID, setActiveTabID] = useState(0);
     if (!Array.isArray(tabs)) tabs = [tabs];
-    const [tabState, setTab] = useState(tabs);
-
+    const tabMemo = useMemo(() => tabs, [tabs]);
+    
     return (
         <div className={classNames(...usedClassNames["TabField"], fieldClassName)}>
             <div className={classNames(...usedClassNames["Header"], headerClassName)}>
-                {tabState.map(tab => {
+                {tabMemo.map(tab => {
                     return (
                         <button
                             type="button"
@@ -63,7 +71,7 @@ export const TabField: FC<TabFieldProps> = ({ tabs, fieldClassName, headerClassN
                     )
                 })}
             </div>
-            {tabState.find(t => t.id === activeTabID)?.node}
+            {tabMemo.find(t => t.id === activeTabID)?.content}
         </div>
     )
 }

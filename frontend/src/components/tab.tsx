@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { useMemo, useState, type FC, type ReactNode } from "react"
+import { Button } from "react-bootstrap";
 
 export const usedClassNames = {
     TabField: ["tabField"],
@@ -58,8 +59,7 @@ export const TabField: FC<TabFieldProps> = ({ tabs, fieldClassName, headerClassN
             <div className={classNames(...usedClassNames["Header"], headerClassName)}>
                 {tabMemo.map(tab => {
                     return (
-                        <button
-                            type="button"
+                        <Button 
                             className={
                                 classNames(
                                     ...(tab.id === activeTabID ? usedClassNames["ActiveTab"]: usedClassNames["Tab"]),
@@ -68,7 +68,7 @@ export const TabField: FC<TabFieldProps> = ({ tabs, fieldClassName, headerClassN
                             }
                             onClick={() => setActiveTabID(tab.id)}
                             key={tab.id}
-                        >{tab.label}</button>
+                        >{tab.label}</Button>
                     )
                 })}
             </div>

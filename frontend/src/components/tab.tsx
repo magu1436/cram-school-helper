@@ -67,6 +67,7 @@ export const TabField: FC<TabFieldProps> = ({ tabs, fieldClassName, headerClassN
                                 )
                             }
                             onClick={() => setActiveTabID(tab.id)}
+                            key={tab.id}
                         >{tab.label}</button>
                     )
                 })}

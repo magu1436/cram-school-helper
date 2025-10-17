@@ -1,17 +1,60 @@
 import { useState } from "react"
 import { SubjectSelect, subjects } from "./subjectSelector";
+import { TextBox } from "./textBox";
+import { Button } from "react-bootstrap";
 
-type DetailProps = {
-
-}
 
 export const ClassDetail = () => {
+    const [memo, setMemo] = useState<string>();
+    const [teachingUnit, setTeachingUnit] = useState<string>();
+    const [learned, setLearned] = useState<string>();
+    const [goodPoint, setGoodPoint] = useState<string>();
+    const [issue, setIssue] = useState<string>();
+    const [comment, setComment] = useState<string>();
+
     const [subject, setSubject] = useState(Object.keys(subjects)[0]);
     
     return (
         <>
             <SubjectSelect setter={setSubject} />
-            <div>{subject}</div>
+            <TextBox 
+                title="授業メモ"
+                valueSetter={setMemo}
+                defaultValue={memo}
+                rows={3}
+            />
+            <TextBox 
+                title="実施した単元"
+                valueSetter={setTeachingUnit}
+                defaultValue={teachingUnit}
+                rows={1}
+            />
+            <TextBox 
+                title="できるようになったこと"
+                valueSetter={setLearned}
+                defaultValue={learned}
+                rows={3}
+            />
+            <TextBox 
+                title="良かったところ(省略可能)"
+                valueSetter={setGoodPoint}
+                defaultValue={goodPoint}
+                rows={3}
+            />
+            <TextBox 
+                title="今後の課題と改善策"
+                valueSetter={setIssue}
+                defaultValue={issue}
+                rows={3}
+            />
+            <TextBox
+                title="講師コメント"
+                valueSetter={setComment}
+                defaultValue={comment}
+                rows={3}
+            />
+            <Button onClick={() => {setComment("GPTによって作成されたコメント")}}>ChatGPTで作成</Button>
+            <div>{memo}</div>
         </>
     )
 }

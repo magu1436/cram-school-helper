@@ -1,15 +1,7 @@
-import { useEffect, useState, type FC } from "react"
+import { useEffect, useState, type FC } from "react";
 
-
-type Subject = {
-    "国語": string[],
-    "数学": string[],
-    "英語": string[],
-    "理科": string[],
-    "社会": string[],
-    "その他": string[],
-    [key: string]: string[],
-}
+import type { Setter } from "@/components/stateSetter";
+import type { Subject } from "@/types/props";
 
 export const subjects: Subject = {
     "国語": ["現代文", "古文", "漢文"],
@@ -19,8 +11,6 @@ export const subjects: Subject = {
     "社会": ["地理", "日本史", "世界史", "歴史", "公民", "公共", "倫理", "政治・経済"],
     "その他": []
 }
-
-type Setter = (subject: string) => void;
 
 const SubjectOptGroup: FC<{sub: string}> = ({sub}) => {
     const minors = subjects[sub];
@@ -35,7 +25,7 @@ const SubjectOptGroup: FC<{sub: string}> = ({sub}) => {
     )
 }
 
-export const SubjectSelect: FC<{setter: Setter}> = ({setter}) => {
+export const SubjectSelect: FC<{setter: Setter<string>}> = ({setter}) => {
     const [subject, setSubject] = useState("");
     useEffect(() => {setter(subject)}, [subject]);
     return (

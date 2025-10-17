@@ -19,3 +19,13 @@ export type TextBoxProps = {
     placeholder?: string,
     readonly?: boolean,
 }
+
+export type ClassDetailProps = {
+    subject?: string,
+    memo?: string,
+    unit?: string,
+    learned?: string,
+    goodPoint?: string,
+    issue?: string,
+    comment?: string,
+}

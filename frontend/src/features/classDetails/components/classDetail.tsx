@@ -1,21 +1,22 @@
-import { useState } from "react"
+import { useState, type FC } from "react"
 import { SubjectSelect, subjects } from "./subjectSelector";
 import { TextBox } from "./textBox";
 import { Button } from "react-bootstrap";
 import { createComment } from "@/features/classDetails/api";
+import type { ClassDetailProps } from "@/types/props";
 
 const TEXTBOX_ROW = 3;
 
 
-export const ClassDetail = () => {
-    const [memo, setMemo] = useState<string>();
-    const [teachingUnit, setTeachingUnit] = useState<string>("");
-    const [learned, setLearned] = useState<string>("");
-    const [goodPoint, setGoodPoint] = useState<string>("");
-    const [issue, setIssue] = useState<string>("");
-    const [comment, setComment] = useState<string>("");
+export const ClassDetail: FC<ClassDetailProps> = (props) => {
+    const [memo, setMemo] = useState<string>(props.memo ? props.memo: "");
+    const [unit, setUnit] = useState<string>(props.unit ? props.unit: "");
+    const [learned, setLearned] = useState<string>(props.learned ? props.learned: "");
+    const [goodPoint, setGoodPoint] = useState<string>(props.goodPoint ? props.goodPoint: "");
+    const [issue, setIssue] = useState<string>(props.issue ? props.issue: "");
+    const [comment, setComment] = useState<string>(props.comment ? props.comment: "");
 
-    const [subject, setSubject] = useState(Object.keys(subjects)[0]);
+    const [subject, setSubject] = useState(props.subject ? props.subject: "");
     
     return (
         <>
@@ -28,8 +29,8 @@ export const ClassDetail = () => {
             />
             <TextBox 
                 title="実施した単元"
-                valueSetter={setTeachingUnit}
-                stateValue={teachingUnit}
+                valueSetter={setUnit}
+                stateValue={unit}
                 rows={1}
             />
             <TextBox 
@@ -58,7 +59,7 @@ export const ClassDetail = () => {
             />
             <Button onClick={() => {setComment(createComment(
                 subject, 
-                teachingUnit, 
+                unit, 
                 learned,
                 goodPoint,
                 issue))}}>ChatGPTで作成</Button>

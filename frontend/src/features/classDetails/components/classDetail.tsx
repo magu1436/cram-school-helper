@@ -20,37 +20,37 @@ export const ClassDetail = () => {
             <TextBox 
                 title="授業メモ"
                 valueSetter={setMemo}
-                defaultValue={memo}
+                stateValue={memo}
                 rows={3}
             />
             <TextBox 
                 title="実施した単元"
                 valueSetter={setTeachingUnit}
-                defaultValue={teachingUnit}
+                stateValue={teachingUnit}
                 rows={1}
             />
             <TextBox 
                 title="できるようになったこと"
                 valueSetter={setLearned}
-                defaultValue={learned}
+                stateValue={learned}
                 rows={3}
             />
             <TextBox 
                 title="良かったところ(省略可能)"
                 valueSetter={setGoodPoint}
-                defaultValue={goodPoint}
+                stateValue={goodPoint}
                 rows={3}
             />
             <TextBox 
                 title="今後の課題と改善策"
                 valueSetter={setIssue}
-                defaultValue={issue}
+                stateValue={issue}
                 rows={3}
             />
             <TextBox
                 title="講師コメント"
                 valueSetter={setComment}
-                defaultValue={comment}
+                stateValue={comment}
                 rows={3}
             />
             <Button onClick={() => {setComment("GPTによって作成されたコメント")}}>ChatGPTで作成</Button>

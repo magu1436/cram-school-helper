@@ -13,7 +13,7 @@ export type Subject = {
 export type TextBoxProps = {
     title: string,
     valueSetter: Setter<string>,
-    defaultValue?: string;
+    stateValue?: string;
     className?: string,
     rows?: number,
     placeholder?: string,

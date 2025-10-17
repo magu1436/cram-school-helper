@@ -8,9 +8,13 @@ const TEXTBOX_CLASSNAME = "textbox";
 const DEFAULT_ROWS = 2;
 const DEFAULT_PLACEHOLDER = "ここにテキストを入力...";
 
+/**
+ * 題名付きのテキストボックスを作成する.  
+ * `stateValue` に値を与えたとき, `value` が更新されたときにテキストボックスの中身も変更される.  
+ */
 export const TextBox: FC<TextBoxProps> = ({
         title, 
-        defaultValue, 
+        stateValue, 
         valueSetter, 
         className, 
         rows = DEFAULT_ROWS, 
@@ -24,7 +28,7 @@ export const TextBox: FC<TextBoxProps> = ({
             <textarea 
                 className={classNames(TEXTBOX_CLASSNAME, "my-2")} 
                 rows={rows} 
-                value={defaultValue}
+                value={stateValue}
                 placeholder={placeholder} 
                 readOnly={readonly}
                 onChange={(e) => {valueSetter(e.target.value)}} 

@@ -1,6 +1,7 @@
 import { formatDate } from "@/utils/dateformatter";
 import { ClassDetail } from "./components/classDetail";
 import { Tab, Tabs } from "react-bootstrap";
+import { StudentTab } from "./components/studentTab";
 
 export function ClassDetailsPage(){
     const date = new Date();
@@ -20,13 +21,11 @@ export function ClassDetailsPage(){
             <Tabs defaultActiveKey={0}>
                 {classes.map(c => {
                     return (
-                        <Tab eventKey={c.key} title={c.class}>
+                        <Tab eventKey={c.key} title={c.class} key={c.key}>
                             <Tabs defaultActiveKey={0}>
                                 {dummyData.map(s => {
                                     return (
-                                        <Tab eventKey={s.key} title={s.name}>
-                                            <ClassDetail />
-                                        </Tab>
+                                        <StudentTab eventKey={s.key} name={s.name} key={s.key} />
                                     )
                                 })}
                             </Tabs>

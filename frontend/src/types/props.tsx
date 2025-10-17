@@ -29,3 +29,9 @@ export type ClassDetailProps = {
     issue?: string,
     comment?: string,
 }
+
+export type StudentTabProps = {
+    name: string,
+    eventKey: number | string,
+    classDetailProps?: ClassDetailProps,
+}

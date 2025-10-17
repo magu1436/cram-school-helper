@@ -3,6 +3,8 @@ import { SubjectSelect, subjects } from "./subjectSelector";
 import { TextBox } from "./textBox";
 import { Button } from "react-bootstrap";
 
+const TEXTBOX_ROW = 3;
+
 
 export const ClassDetail = () => {
     const [memo, setMemo] = useState<string>();
@@ -21,7 +23,7 @@ export const ClassDetail = () => {
                 title="授業メモ"
                 valueSetter={setMemo}
                 stateValue={memo}
-                rows={3}
+                rows={TEXTBOX_ROW}
             />
             <TextBox 
                 title="実施した単元"
@@ -33,25 +35,25 @@ export const ClassDetail = () => {
                 title="できるようになったこと"
                 valueSetter={setLearned}
                 stateValue={learned}
-                rows={3}
+                rows={TEXTBOX_ROW}
             />
             <TextBox 
                 title="良かったところ(省略可能)"
                 valueSetter={setGoodPoint}
                 stateValue={goodPoint}
-                rows={3}
+                rows={TEXTBOX_ROW}
             />
             <TextBox 
                 title="今後の課題と改善策"
                 valueSetter={setIssue}
                 stateValue={issue}
-                rows={3}
+                rows={TEXTBOX_ROW}
             />
             <TextBox
                 title="講師コメント"
                 valueSetter={setComment}
                 stateValue={comment}
-                rows={3}
+                rows={TEXTBOX_ROW}
             />
             <Button onClick={() => {setComment("GPTによって作成されたコメント")}}>ChatGPTで作成</Button>
             <div>{memo}</div>

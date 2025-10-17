@@ -2,17 +2,18 @@ import { useState } from "react"
 import { SubjectSelect, subjects } from "./subjectSelector";
 import { TextBox } from "./textBox";
 import { Button } from "react-bootstrap";
+import { createComment } from "@/features/classDetails/api";
 
 const TEXTBOX_ROW = 3;
 
 
 export const ClassDetail = () => {
     const [memo, setMemo] = useState<string>();
-    const [teachingUnit, setTeachingUnit] = useState<string>();
-    const [learned, setLearned] = useState<string>();
-    const [goodPoint, setGoodPoint] = useState<string>();
-    const [issue, setIssue] = useState<string>();
-    const [comment, setComment] = useState<string>();
+    const [teachingUnit, setTeachingUnit] = useState<string>("");
+    const [learned, setLearned] = useState<string>("");
+    const [goodPoint, setGoodPoint] = useState<string>("");
+    const [issue, setIssue] = useState<string>("");
+    const [comment, setComment] = useState<string>("");
 
     const [subject, setSubject] = useState(Object.keys(subjects)[0]);
     
@@ -55,7 +56,12 @@ export const ClassDetail = () => {
                 stateValue={comment}
                 rows={TEXTBOX_ROW}
             />
-            <Button onClick={() => {setComment("GPTによって作成されたコメント")}}>ChatGPTで作成</Button>
+            <Button onClick={() => {setComment(createComment(
+                subject, 
+                teachingUnit, 
+                learned,
+                goodPoint,
+                issue))}}>ChatGPTで作成</Button>
             <div>{memo}</div>
         </>
     )

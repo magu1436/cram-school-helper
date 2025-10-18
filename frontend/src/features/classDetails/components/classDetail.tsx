@@ -1,9 +1,9 @@
 import { useState, type FC } from "react"
-import { SubjectSelect, subjects } from "./subjectSelector";
+import { SubjectSelect } from "./subjectSelector";
 import { TextBox } from "./textBox";
 import { Button } from "react-bootstrap";
 import { createComment } from "@/features/classDetails/api";
-import type { ClassDetailProps } from "@/types/props";
+import type { ClassDetailProps } from "@/features/classDetails/types/props";
 
 const TEXTBOX_ROW = 3;
 
@@ -17,6 +17,8 @@ export const ClassDetail: FC<ClassDetailProps> = (props) => {
     const [comment, setComment] = useState<string>(props.comment ? props.comment: "");
 
     const [subject, setSubject] = useState(props.subject ? props.subject: "");
+
+    console.log(memo);
     
     return (
         <>

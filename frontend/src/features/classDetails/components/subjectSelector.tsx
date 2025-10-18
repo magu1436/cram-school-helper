@@ -1,7 +1,7 @@
 import { useEffect, useState, type FC } from "react";
 
-import type { Setter } from "@/components/stateSetter";
-import type { Subject } from "@/types/props";
+import type { Setter } from "@/types/stateSetter";
+import type { Subject } from "@/features/classDetails/types/props";
 
 export const subjects: Subject = {
     "国語": ["現代文", "古文", "漢文"],

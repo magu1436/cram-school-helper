@@ -1,4 +1,4 @@
-import type { Setter } from "@/components/stateSetter";
+import type { Setter } from "@/types/stateSetter";
 
 export type Subject = {
     "国語": string[],
@@ -20,7 +20,9 @@ export type TextBoxProps = {
     readonly?: boolean,
 }
 
-export type ClassDetailProps = {
+export type ClassDetailProps = ClassDetail;
+
+export type ClassDetail = {
     subject?: string,
     memo?: string,
     unit?: string,
@@ -30,8 +32,11 @@ export type ClassDetailProps = {
     comment?: string,
 }
 
-export type StudentTabProps = {
+export type StudentTab = {
     name: string,
-    eventKey: number | string,
-    classDetailProps?: ClassDetailProps,
+    classDetail?: ClassDetail,
+}
+
+export type StudentTabsProps = {
+    studentTabs: StudentTab[],
 }

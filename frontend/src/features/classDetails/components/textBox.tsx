@@ -1,6 +1,6 @@
 import type { FC } from "react"
 
-import type { TextBoxProps } from "@/types/props";
+import type { TextBoxProps } from "@/features/classDetails/types/props";
 import classNames from "classnames";
 
 const TIELE_CLASSNAME = "text-title";

@@ -13,13 +13,13 @@ export const subjects: Subject = {
     "その他": []
 }
 
-const SubjectOptGroup: FC<{sub: string, defaultSub?: string}> = ({sub, defaultSub}) => {
+const SubjectOptGroup: FC<{sub: string}> = ({sub}) => {
     const minors = subjects[sub];
     return (
         <optgroup label={sub}>
             {[sub, ...minors].map(s => {
                 return (
-                    <option value={s} key={s} selected={ s === defaultSub }>{s}</option>
+                    <option value={s} key={s}>{s}</option>
                 );
             })}
         </optgroup>
@@ -29,9 +29,9 @@ const SubjectOptGroup: FC<{sub: string, defaultSub?: string}> = ({sub, defaultSu
 export const SubjectSelect: FC<{subject?: string, setter: Setter<string>}> = ({subject, setter}) => {
     const unInputOptionValue = "科目を選択...";
     return (
-        <select name="subject-selector" onChange={(e) => {setter(e.target.value)}}>
+        <select name="subject-selector" onChange={(e) => {setter(e.target.value)}} defaultValue={subject}>
             <option id="un-input-option" value={unInputOptionValue} className={subject? "d-none": ""}>{unInputOptionValue}</option>
-            {Object.keys(subjects).map(s => {return (<SubjectOptGroup sub={s} defaultSub={subject} key={`group-${s}`} />)})}
+            {Object.keys(subjects).map(s => {return (<SubjectOptGroup sub={s} key={`group-${s}`} />)})}
         </select>
     )
 }

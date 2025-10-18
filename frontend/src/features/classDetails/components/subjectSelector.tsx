@@ -1,7 +1,8 @@
-import { useEffect, useState, type FC } from "react";
-
 import type { Setter } from "@/types/stateSetter";
-import type { Subject } from "@/features/classDetails/types/props";
+import type { Subject } from "../types/classRelated";
+
+import "../assets/subjectSelector.css";
+import type { FC } from "react";
 
 export const subjects: Subject = {
     "国語": ["現代文", "古文", "漢文"],
@@ -12,25 +13,25 @@ export const subjects: Subject = {
     "その他": []
 }
 
-const SubjectOptGroup: FC<{sub: string}> = ({sub}) => {
+const SubjectOptGroup: FC<{sub: string, defaultSub?: string}> = ({sub, defaultSub}) => {
     const minors = subjects[sub];
     return (
         <optgroup label={sub}>
             {[sub, ...minors].map(s => {
                 return (
-                    <option value={s} key={s}>{s}</option>
+                    <option value={s} key={s} selected={ s === defaultSub }>{s}</option>
                 );
             })}
         </optgroup>
     )
 }
 
-export const SubjectSelect: FC<{setter: Setter<string>}> = ({setter}) => {
-    const [subject, setSubject] = useState("");
-    useEffect(() => {setter(subject)}, [subject]);
+export const SubjectSelect: FC<{subject?: string, setter: Setter<string>}> = ({subject, setter}) => {
+    const unInputOptionValue = "科目を選択...";
     return (
-        <select name="subject-selector" onChange={(e) => {setSubject(e.target.value)}}>
-            {Object.keys(subjects).map(s => {return (<SubjectOptGroup sub={s} key={`group-${s}`} />)})}
+        <select name="subject-selector" onChange={(e) => {setter(e.target.value)}}>
+            <option id="un-input-option" value={unInputOptionValue} className={subject? "d-none": ""}>{unInputOptionValue}</option>
+            {Object.keys(subjects).map(s => {return (<SubjectOptGroup sub={s} defaultSub={subject} key={`group-${s}`} />)})}
         </select>
     )
 }

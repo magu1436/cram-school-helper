@@ -1,14 +1,5 @@
 import type { Setter } from "@/types/stateSetter";
-
-export type Subject = {
-    "国語": string[],
-    "数学": string[],
-    "英語": string[],
-    "理科": string[],
-    "社会": string[],
-    "その他": string[],
-    [key: string]: string[],
-}
+import type { ClassDetail, StudentTab } from "./classRelated";
 
 export type TextBoxProps = {
     title: string,
@@ -21,21 +12,6 @@ export type TextBoxProps = {
 }
 
 export type ClassDetailProps = ClassDetail;
-
-export type ClassDetail = {
-    subject?: string,
-    memo?: string,
-    unit?: string,
-    learned?: string,
-    goodPoint?: string,
-    issue?: string,
-    comment?: string,
-}
-
-export type StudentTab = {
-    name: string,
-    classDetail?: ClassDetail,
-}
 
 export type StudentTabsProps = {
     studentTabs: StudentTab[],

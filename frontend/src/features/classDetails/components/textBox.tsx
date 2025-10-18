@@ -24,9 +24,9 @@ export const TextBox: FC<TextBoxProps> = ({
 
     return (
         <div className={classNames(className, "d-flex" , "flex-column", "align-item-start")}>
-            <p className={classNames(TIELE_CLASSNAME)}> {title} </p>
+            <div className={classNames(TIELE_CLASSNAME)}>{title}</div>
             <textarea 
-                className={classNames(TEXTBOX_CLASSNAME, "my-2")} 
+                className={classNames(TEXTBOX_CLASSNAME)} 
                 rows={rows} 
                 value={stateValue}
                 placeholder={placeholder} 

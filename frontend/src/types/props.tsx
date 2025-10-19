@@ -5,7 +5,7 @@ import type { StateSet } from "./state"
 export type SimpleModalProps = {
     visibleStateSet: StateSet<boolean>,
     title?: string,
-    children: ReactNode,
+    children: ReactNode | ReactNode[],
     closeButtonLabel?: string,
     submitButtonLabel?: string,
     submitFunc?: () => void,

@@ -2,7 +2,8 @@ type SupportedDateFormat =
   'YYYY/MM/DD' |
   'YYYY年M月D日(曜)'|
   'M/D(曜)' |
-  'YYYY/MM/DD HH:mm:ss';
+  'YYYY/MM/DD HH:mm:ss' |
+  'YYYY-MM-DD';
 
 /**
  * 日付を YYYY/MM/DD 形式の文字列に変換します
@@ -35,6 +36,14 @@ export function formatDate(date: Date, format: 'M/D(曜)'): string;
  * @returns {string} 例: 2024/04/08 09:05:45
  */
 export function formatDate(date: Date, format: 'YYYY/MM/DD HH:mm:ss'): string;
+
+/**
+ * 
+ * @param date 変換対象の日時
+ * @param format YYYY-MM-DD
+ * @returns {string} 例: 2024-04-08
+ */
+export function formatDate(date: Date, format: 'YYYY-MM-DD'): string;
 
 // 実装
 export function formatDate(date: Date, format: SupportedDateFormat): string {
@@ -70,6 +79,13 @@ export function formatDate(date: Date, format: SupportedDateFormat): string {
         minute: '2-digit',
         second: '2-digit'
       });
+    
+    case 'YYYY-MM-DD':
+      return (
+        date.getFullYear() + "-"
+        + ("0" + (date.getMonth() + 1)).slice(-2) + "-"
+        + ("0" + (date.getDate())).slice(-2)
+      )
 
     default:
       throw new Error(`Unsupported format: ${format}`);

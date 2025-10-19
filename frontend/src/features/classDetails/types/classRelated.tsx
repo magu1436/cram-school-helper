@@ -1,3 +1,6 @@
+import type { StateSet } from "@/types/state";
+
+export type Class = "X" | "Y" | "Z" | "A" | "B" | "C" | "D";
 
 export type ClassDetail = {
     subject?: string,
@@ -7,12 +10,17 @@ export type ClassDetail = {
     goodPoint?: string,
     issue?: string,
     comment?: string,
+};
+
+export type ClassTab = {
+    class: Class,
+    tabStateSet: StateSet<StudentTab[]>,
 }
 
 export type StudentTab = {
     name: string,
     classDetail?: ClassDetail,
-}
+};
 
 export type Subject = {
     "国語": string[],
@@ -22,4 +30,4 @@ export type Subject = {
     "社会": string[],
     "その他": string[],
     [key: string]: string[],
-}
+};

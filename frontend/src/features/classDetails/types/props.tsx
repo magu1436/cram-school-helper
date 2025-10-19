@@ -1,4 +1,4 @@
-import type { Setter } from "@/types/stateSetter";
+import type { Setter, StateSet } from "@/types/state";
 import type { ClassDetail, StudentTab } from "./classRelated";
 
 export type TextBoxProps = {
@@ -14,5 +14,11 @@ export type TextBoxProps = {
 export type ClassDetailProps = ClassDetail;
 
 export type StudentTabsProps = {
-    studentTabs: StudentTab[],
+    studentTabsStateSet: StateSet<StudentTab[]>,
+}
+
+export type AddStudentTabModalProps = {
+    visibleStateSet: StateSet<boolean>,
+    studentTabsStateSet: StateSet<StudentTab[]>,
+    keySetter: Setter<number>,
 }

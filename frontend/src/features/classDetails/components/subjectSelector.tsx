@@ -1,4 +1,4 @@
-import type { Setter } from "@/types/stateSetter";
+import type { Setter } from "@/types/state";
 import type { Subject } from "../types/classRelated";
 
 import "../assets/subjectSelector.css";

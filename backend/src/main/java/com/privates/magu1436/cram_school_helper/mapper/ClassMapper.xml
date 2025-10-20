@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.privates.magu1436.cram_school_helper.mapper.ClassMapper">
+
+    <resultMap id="calendarCellMap" type="com.privates.magu1436.cram_school_helper.entity.CalendarCell">
+        <id property="id" column="calendar_cell_id" />
+        <result  property="classAt" column="class_at"/>
+        <collection property="classes" resultMap="classMap" />
+    </resultMap>
+
+    <resultMap id="classMap" type="com.privates.magu1436.cram_school_helper.entity.Class_">
+        <id property="id" column="class_id" />
+        <result property="name" column="class_name" />
+        <collection property="classDetails" resultMap="classDetailMap" />
+    </resultMap>
+
+    <resultMap id="classDetailMap" type="com.privates.magu1436.cram_school_helper.entity.ClassDetail">
+        <id property="id" column="class_detail_id" />
+        <result property="student" column="student" />
+        <result property="subject" column="class_subject" />
+        <result property="memo" column="memo" jdbcType="TEXT" />
+        <result property="unit" column="teaching_unit" jdbcType="TEXT" />
+        <result property="learned" column="leaned" jdbcType="TEXT" />
+        <result property="goodPoint" column="good_point" jdbcType="TEXT" />
+        <result property="issue" column="issue" jdbcType="TEXT" />
+        <result property="comment" column="comment" jdbcType="TEXT" /> 
+    </resultMap>
+
+
+    <!-- CalendarCell クラス -->
+
+    <select 
+        id="getAllCalendarCells" resultMap="calendarCellMap">
+        SELECT 
+            cc.calendar_cell_id, cc.class_at ,
+            c.class_id, c.class_name,
+            cd.class_detail_id, cd.student, cd.subject, cd.memo, cd.unit, cd.learned, cd.good_point, cd.issue, cd.comment
+        FROM calendar_cells cc 
+        INNER JOIN classes c ON c.calendar_cell_id = cc.calendar_cell_id
+        INNER JOIN class_details cd ON cd.class_id = c.class_id
+        ORDER BY cc.class_at
+    </select>
+
+    <select id="getCalendarCellById" resultMap="calendarCellMap">
+        SELECT 
+            cc.calendar_cell_id, cc.class_at ,
+            c.class_id, c.class_name,
+            cd.class_detail_id, cd.student, cd.subject, cd.memo, cd.unit, cd.learned, cd.good_point, cd.issue, cd.comment
+        FROM calendar_cells cc 
+        INNER JOIN classes c ON c.calendarCell = cc.calendar_cell_id
+        INNER JOIN class_details cd ON cd.class_id = c.class_id
+        WHERE cc.calendar_cell_id = #{id}
+    </select>
+
+    <insert 
+        id="insertCalendarCell" 
+        useGeneratedKeys="true"
+        keyProperty="id"
+        parameterType="com.privates.magu1436.cram_school_helper.entity.CalendarCell"
+    >
+        INSERT INTO calendar_cells (class_at) VALUES (#{classAt})
+    </insert>
+
+    <update id="updateCalendarCell" parameterType="com.privates.magu1436.cram_school_helper.entity.CalendarCell">
+        UPDATE calendar_cells SET class_at = #{classAt}
+        WHERE calendar_cell_id = #{id}
+    </update>
+
+    <delete id="deleteCalendarCell" parameterType="int">
+        DELETE FROM calendar_cells WHERE calendar_cell_id = #{id}
+    </delete>
+
+
+    <!-- Class_ クラス -->
+
+    <select id="getClassById" parameterType="int" resultMap="classMap">
+        SELECT
+            c.class_id, c.class_name,
+            cd.class_detail_id, cd.student, cd.subject, cd.memo, cd.unit, cd.learned, cd.good_point, cd.issue, cd.comment
+        FROM 
+            classes c
+        INNER JOIN 
+            class_details cd ON cd.class_id = c.class_id
+        WHERE 
+            c.class_id = #{id}
+    </select>
+
+    <insert 
+        id="insertClass"
+        useGeneratedKeys="true"
+        keyProperty="id"
+        parameterType="com.privates.magu1436.cram_school_helper.entity.Class_"
+    >
+        INSERT classes (class_name) VALUES (#{name})
+    </insert>
+
+    <update id="updateClass" parameterType="com.privates.magu1436.cram_school_helper.entity.Class_">
+        UPDATE classes SET class_name VALUES (#{name}) WHERE class_id = #{id}
+    </update>
+
+    <delete id="deleteClass" parameterType="int">
+        DELETE FROM classes WHERE class_id = #{id}
+    </delete>
+
+
+    <!-- ClassDetail クラス -->
+    
+    <select id="getClassDetailById" parameterType="int" resultMap="classDetail">
+        SELECT
+            cd.class_detail_id, cd.student, cd.subject, cd.memo, cd.unit, cd.learned, cd.good_point, cd.issue, cd.comment
+        FROM 
+            class_details cd
+        WHERE 
+            cd.class_detail_id = #{id}
+    </select>
+
+    <insert 
+        id="insertClassDetail"
+        useGeneratedKeys="true"
+        keyProperty="id"
+        parameterType="com.privates.magu1436.cram_school_helper.entity.ClassDetail"
+    >
+        INSERT class_details
+            (class_id, student, class_subject, memo, teaching_unit, learned, good_point, issue, comment)
+        VALUES
+            (#{classId}, #{student}, #{subject}, #{memo}, #{unit}, #{learned}, #{goodPoint}, #{issue}, #{comment})
+    </insert>
+
+    <update id="updateClassDetail" parameterType="com.privates.magu1436.cram_school_helper.entity.ClassDetail">
+        UPDATE
+            class_details
+        SET
+            class_id = #{classId}, 
+            student = #{student}, 
+            class_subject = #{subject}, 
+            memo = #{memo}, 
+            teaching_unit = #{unit}, 
+            learned = #{learned}, 
+            good_point = #{goodPoint}, 
+            issue = #{issue}, 
+            comment = #{comment}
+        WHERE
+            class_details_id = #{id}
+    </update>
+
+    <delete id="deleteClassDetails" parameterType="int">
+        DELETE FROM
+            class_details
+        WHERE
+            class_detail_id = #{id}
+    </delete>
+</mapper>

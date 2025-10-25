@@ -9,6 +9,7 @@ import { SimpleModal } from "@/components/simpleModal";
 import { useNavigate } from "react-router-dom";
 import { convertClassInfo2Event, createClass } from "../api/event";
 import type { ClassEvent, ClassInfo } from "../types/event";
+import { getClassEvents } from "../api/connection";
 
 const ClassCalendarId = "ClassCalendar";
 
@@ -22,7 +23,8 @@ const ClassCalendar: FC<ClassCalenderProps> = ({
         {id: 0, date: new Date("2025-10-17"), classes: ["C", "D"]},
     ]
     
-    const events: ClassEvent[] = dummyData.map(cf => convertClassInfo2Event(cf));
+    // const events: ClassEvent[] = dummyData.map(cf => convertClassInfo2Event(cf));
+    const events = getClassEvents();
 
     const [modalVisible, setModalVisible] = useState<boolean>(false);
 
@@ -45,7 +47,7 @@ const ClassCalendar: FC<ClassCalenderProps> = ({
     const handleModalSubmit = async () => {
         await createClass(clickedDate);
         nav(`/detail/${formatDate(clickedDate, "YYYY-MM-DD")}`)
-    }
+    };
 
     return (
         <div id={ClassCalendarId} className={className}>

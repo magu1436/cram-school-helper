@@ -10,7 +10,7 @@ CREATE TABLE classes (
     class_id INT PRIMARY KEY AUTO_INCREMENT,
     calendar_cell_id INT NOT NULL ,
     class_name VARCHAR(255) NOT NULL,
-    FOREIGN KEY (calendar_cell_id) REFERENCES calendar_cells(id)
+    FOREIGN KEY (calendar_cell_id) REFERENCES calendar_cells(calendar_cell_id)
 );
 
 -- 授業詳細テーブル
@@ -25,5 +25,5 @@ CREATE TABLE class_details (
     good_point TEXT,
     issue TEXT,
     comment TEXT,
-    FOREIGN KEY (class_id) REFERENCES classes(id)
+    FOREIGN KEY (class_id) REFERENCES classes(class_id)
 );

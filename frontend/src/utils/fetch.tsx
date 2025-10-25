@@ -1,5 +1,4 @@
 import axios from "axios";
-import * as dotenv from "dotenv";
 import { useEffect, useState } from "react";
 
 /**
@@ -9,8 +8,7 @@ import { useEffect, useState } from "react";
  */
 const useFetch = <T,>(app: string) => {
 
-    dotenv.config()
-    const root_url = process.env.ROOT_URL;
+    const root_url = process.env.VITE_ROOT_URL;
     if (!root_url) throw new Error("ルートURL環境変数が指定されていません.");
     const url = root_url + (!app.startsWith("/") && "/") + app;
 

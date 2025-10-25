@@ -1,12 +1,18 @@
 import axios from "axios";
+import * as dotenv from "dotenv";
 import { useEffect, useState } from "react";
 
 /**
  * `Axios` を利用したデータフェッチカスタムフック.
- * @param url APIのURL
+ * @param app アプリケーション名
  * @returns 返却データを保持する連想配列
  */
-const useFetch = <T,>(url: string) => {
+const useFetch = <T,>(app: string) => {
+
+    dotenv.config()
+    const root_url = process.env.ROOT_URL;
+    if (!root_url) throw new Error("ルートURL環境変数が指定されていません.");
+    const url = root_url + (app.startsWith("/") && "/") + app;
 
     const [data, setDate] = useState<T>();
     const [isLoading, setLoading] = useState(true);

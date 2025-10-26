@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "./axios";
 import { useEffect, useState } from "react";
 
 /**
@@ -7,10 +7,8 @@ import { useEffect, useState } from "react";
  * @returns 返却データを保持する連想配列
  */
 const useFetch = <T,>(app: string) => {
-
-    const root_url = process.env.VITE_ROOT_URL;
-    if (!root_url) throw new Error("ルートURL環境変数が指定されていません.");
-    const url = root_url + (!app.startsWith("/") && "/") + app;
+    
+    const url = app.startsWith("/")? app : `/${app}`;
 
     const [data, setDate] = useState<T>();
     const [isLoading, setLoading] = useState(true);

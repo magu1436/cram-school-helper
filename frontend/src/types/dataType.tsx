@@ -5,13 +5,25 @@ export type ClassName =
 export type CalendarCell = {
     id: number,
     classAt: Date;
-    has_classes: Class[],
+    classes: Class[],
 };
+
+export type CalendarCellApiObj = {
+    id: number,
+    classAt: string,
+    classes: ClassApiObj[],
+}
 
 export type Class = {
     id: number,
     name: ClassName,
     classDetails: ClassDetail[],
+};
+
+export type ClassApiObj = {
+    id: number,
+    name: ClassName,
+    classDetails: ClassDetailApiObj[],
 };
 
 export type ClassDetail = {
@@ -20,8 +32,20 @@ export type ClassDetail = {
     subject?: string,
     memo?: string,
     unit?: string,
-    leaned?: string,
+    learned?: string,
     goodPoint?: string,
     issue?: string,
     comment?: string,
+};
+
+export type ClassDetailApiObj = {
+    id: number,
+    student: string | null,
+    subject: string | null,
+    memo: string | null,
+    unit: string | null,
+    learned: string | null,
+    goodPoint: string | null,
+    issue: string | null,
+    comment: string | null,
 };

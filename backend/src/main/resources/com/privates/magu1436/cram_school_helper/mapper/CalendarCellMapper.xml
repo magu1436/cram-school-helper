@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.privates.magu1436.cram_school_helper.mapper.ClassMapper">
+<mapper namespace="com.privates.magu1436.cram_school_helper.mapper.CalendarCellMapper">
 
     <resultMap id="calendarCellMap" type="com.privates.magu1436.cram_school_helper.entity.CalendarCell">
         <id property="id" column="calendar_cell_id" />
@@ -19,12 +19,12 @@
         <id property="id" column="class_detail_id" />
         <result property="student" column="student" />
         <result property="subject" column="class_subject" />
-        <result property="memo" column="memo" jdbcType="TEXT" />
-        <result property="unit" column="teaching_unit" jdbcType="TEXT" />
-        <result property="learned" column="leaned" jdbcType="TEXT" />
-        <result property="goodPoint" column="good_point" jdbcType="TEXT" />
-        <result property="issue" column="issue" jdbcType="TEXT" />
-        <result property="comment" column="comment" jdbcType="TEXT" /> 
+        <result property="memo" column="memo" />
+        <result property="unit" column="teaching_unit" />
+        <result property="learned" column="learned" />
+        <result property="goodPoint" column="good_point" />
+        <result property="issue" column="issue" />
+        <result property="comment" column="comment" /> 
     </resultMap>
 
 
@@ -35,7 +35,7 @@
         SELECT 
             cc.calendar_cell_id, cc.class_at ,
             c.class_id, c.class_name,
-            cd.class_detail_id, cd.student, cd.subject, cd.memo, cd.unit, cd.learned, cd.good_point, cd.issue, cd.comment
+            cd.class_detail_id, cd.student, cd.class_subject, cd.memo, cd.teaching_unit, cd.learned, cd.good_point, cd.issue, cd.comment
         FROM calendar_cells cc 
         INNER JOIN classes c ON c.calendar_cell_id = cc.calendar_cell_id
         INNER JOIN class_details cd ON cd.class_id = c.class_id
@@ -46,9 +46,9 @@
         SELECT 
             cc.calendar_cell_id, cc.class_at ,
             c.class_id, c.class_name,
-            cd.class_detail_id, cd.student, cd.subject, cd.memo, cd.unit, cd.learned, cd.good_point, cd.issue, cd.comment
+            cd.class_detail_id, cd.student, cd.class_subject, cd.memo, cd.teaching_unit, cd.learned, cd.good_point, cd.issue, cd.comment
         FROM calendar_cells cc 
-        INNER JOIN classes c ON c.calendarCell = cc.calendar_cell_id
+        INNER JOIN classes c ON c.calendar_cell_id = cc.calendar_cell_id
         INNER JOIN class_details cd ON cd.class_id = c.class_id
         WHERE cc.calendar_cell_id = #{id}
     </select>
@@ -77,7 +77,7 @@
     <select id="getClassById" parameterType="int" resultMap="classMap">
         SELECT
             c.class_id, c.class_name,
-            cd.class_detail_id, cd.student, cd.subject, cd.memo, cd.unit, cd.learned, cd.good_point, cd.issue, cd.comment
+            cd.class_detail_id, cd.student, cd.class_subject, cd.memo, cd.teaching_unit, cd.learned, cd.good_point, cd.issue, cd.comment
         FROM 
             classes c
         INNER JOIN 
@@ -106,9 +106,17 @@
 
     <!-- ClassDetail クラス -->
     
-    <select id="getClassDetailById" parameterType="int" resultMap="classDetail">
+    <select id="getClassDetailById" parameterType="int" resultMap="classDetailMap">
         SELECT
-            cd.class_detail_id, cd.student, cd.subject, cd.memo, cd.unit, cd.learned, cd.good_point, cd.issue, cd.comment
+            cd.class_detail_id, 
+            cd.student, 
+            cd.class_subject, 
+            cd.memo, 
+            cd.teaching_unit, 
+            cd.learned, 
+            cd.good_point, 
+            cd.issue, 
+            cd.comment
         FROM 
             class_details cd
         WHERE 

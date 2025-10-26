@@ -7,8 +7,7 @@ import FullCalendar from "@fullcalendar/react";
 import { formatDate } from "@/utils/dateformatter";
 import { SimpleModal } from "@/components/simpleModal";
 import { useNavigate } from "react-router-dom";
-import { convertClassInfo2Event, createClass } from "../api/event";
-import type { ClassEvent, ClassInfo } from "../types/event";
+import { createClass } from "../api/event";
 import { getClassEvents } from "../api/connection";
 
 const ClassCalendarId = "ClassCalendar";
@@ -16,14 +15,6 @@ const ClassCalendarId = "ClassCalendar";
 const ClassCalendar: FC<ClassCalenderProps> = ({
     className
 }) => {
-
-    const dummyData: ClassInfo[] = [
-        {id: 0, date: new Date(), classes: ["C", "D"]},
-        {id: 0, date: new Date("2025-10-18"), classes: ["B", "D"]},
-        {id: 0, date: new Date("2025-10-17"), classes: ["C", "D"]},
-    ]
-    
-    // const events: ClassEvent[] = dummyData.map(cf => convertClassInfo2Event(cf));
     const events = getClassEvents();
 
     const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -31,12 +22,17 @@ const ClassCalendar: FC<ClassCalenderProps> = ({
     const [clickedDate, setClickedDate] = useState<Date>(new Date());
     const nav = useNavigate();
     const handleDateClick = (arg: DateClickArg) => {
+        if ( !events ) {
+            setModalVisible(true);
+            return;
+        }
         setClickedDate(arg.date);
-        for (const d of dummyData){
+        for (const e of events){
+            const d = new Date(e.start);
             if (
-                arg.date.getDate() === d.date.getDate() &&
-                arg.date.getMonth() === d.date.getMonth() &&
-                arg.date.getFullYear() === d.date.getFullYear()
+                arg.date.getDate() === d.getDate() &&
+                arg.date.getMonth() === d.getMonth() &&
+                arg.date.getFullYear() === d.getFullYear()
             ){
                 nav(`/detail/${arg.dateStr}`);
                 return;

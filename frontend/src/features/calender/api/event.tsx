@@ -35,7 +35,7 @@ export const convertClassInfo2Event = (info: ClassInfo): ClassEvent => {
 export const convertCalendarCell2Event = (cell: CalendarCell): ClassEvent => {
 
     let title = "";
-    cell.has_classes.forEach(c => {
+    cell.classes.forEach(c => {
         title += c.name;
     });
 

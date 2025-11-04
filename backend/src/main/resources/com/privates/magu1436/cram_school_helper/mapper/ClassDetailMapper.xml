@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.privates.magu1436.cram_school_helper.mapper.ClassDetailMapper">
+
+    <select id="getClassDetailById" parameterType="int" resultMap="com.privates.magu1436.cram_school_helper.mapper.EntityMapper.classDetailMap">
+        SELECT
+            cd.class_detail_id, 
+            cd.student, 
+            cd.class_subject, 
+            cd.memo, 
+            cd.teaching_unit, 
+            cd.learned, 
+            cd.good_point, 
+            cd.issue, 
+            cd.comment
+        FROM 
+            class_details cd
+        WHERE 
+            cd.class_detail_id = #{id}
+    </select>
+
+    <insert 
+        id="insertClassDetail"
+        useGeneratedKeys="true"
+        keyProperty="id"
+        parameterType="com.privates.magu1436.cram_school_helper.entity.ClassDetail"
+    >
+        INSERT class_details
+            (class_id, student, class_subject, memo, teaching_unit, learned, good_point, issue, comment)
+        VALUES
+            (#{classId}, #{student}, #{subject}, #{memo}, #{unit}, #{learned}, #{goodPoint}, #{issue}, #{comment})
+    </insert>
+
+    <update id="updateClassDetail" parameterType="com.privates.magu1436.cram_school_helper.entity.ClassDetail">
+        UPDATE
+            class_details
+        SET
+            class_id = #{classId}, 
+            student = #{student}, 
+            class_subject = #{subject}, 
+            memo = #{memo}, 
+            teaching_unit = #{unit}, 
+            learned = #{learned}, 
+            good_point = #{goodPoint}, 
+            issue = #{issue}, 
+            comment = #{comment}
+        WHERE
+            class_details_id = #{id}
+    </update>
+
+    <delete id="deleteClassDetails" parameterType="int">
+        DELETE FROM
+            class_details
+        WHERE
+            class_detail_id = #{id}
+    </delete>
+</mapper>

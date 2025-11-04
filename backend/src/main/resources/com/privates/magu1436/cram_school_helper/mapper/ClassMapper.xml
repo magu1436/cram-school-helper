@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.privates.magu1436.cram_school_helper.mapper.ClassMapper">
+
+    <select id="getClassById" parameterType="int" resultMap="com.privates.magu1436.cram_school_helper.mapper.EntityMapper.classMap">
+        SELECT
+            c.class_id, c.class_name,
+            cd.class_detail_id, cd.student, cd.class_subject, cd.memo, cd.teaching_unit, cd.learned, cd.good_point, cd.issue, cd.comment
+        FROM 
+            classes c
+        INNER JOIN 
+            class_details cd ON cd.class_id = c.class_id
+        WHERE 
+            c.class_id = #{id}
+    </select>
+
+    <insert 
+        id="insertClass"
+        useGeneratedKeys="true"
+        keyProperty="id"
+        parameterType="com.privates.magu1436.cram_school_helper.entity.Class_"
+    >
+        INSERT classes (class_name) VALUES (#{name})
+    </insert>
+
+    <update id="updateClass" parameterType="com.privates.magu1436.cram_school_helper.entity.Class_">
+        UPDATE classes SET class_name VALUES (#{name}) WHERE class_id = #{id}
+    </update>
+
+    <delete id="deleteClass" parameterType="int">
+        DELETE FROM classes WHERE class_id = #{id}
+    </delete>
+
+</mapper>

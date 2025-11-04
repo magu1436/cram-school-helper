@@ -2,36 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.privates.magu1436.cram_school_helper.mapper.CalendarCellMapper">
-
-    <resultMap id="calendarCellMap" type="com.privates.magu1436.cram_school_helper.entity.CalendarCell">
-        <id property="id" column="calendar_cell_id" />
-        <result  property="classAt" column="class_at"/>
-        <collection property="classes" resultMap="classMap" />
-    </resultMap>
-
-    <resultMap id="classMap" type="com.privates.magu1436.cram_school_helper.entity.Class_">
-        <id property="id" column="class_id" />
-        <result property="name" column="class_name" />
-        <collection property="classDetails" resultMap="classDetailMap" />
-    </resultMap>
-
-    <resultMap id="classDetailMap" type="com.privates.magu1436.cram_school_helper.entity.ClassDetail">
-        <id property="id" column="class_detail_id" />
-        <result property="student" column="student" />
-        <result property="subject" column="class_subject" />
-        <result property="memo" column="memo" />
-        <result property="unit" column="teaching_unit" />
-        <result property="learned" column="learned" />
-        <result property="goodPoint" column="good_point" />
-        <result property="issue" column="issue" />
-        <result property="comment" column="comment" /> 
-    </resultMap>
-
-
     <!-- CalendarCell クラス -->
 
     <select 
-        id="getAllCalendarCells" resultMap="calendarCellMap">
+        id="getAllCalendarCells" resultMap="com.privates.magu1436.cram_school_helper.mapper.EntityMapper.calendarCellMap">
         SELECT 
             cc.calendar_cell_id, cc.class_at ,
             c.class_id, c.class_name,
@@ -42,7 +16,7 @@
         ORDER BY cc.class_at
     </select>
 
-    <select id="getCalendarCellById" resultMap="calendarCellMap">
+    <select id="getCalendarCellById" resultMap="com.privates.magu1436.cram_school_helper.mapper.EntityMapper.calendarCellMap">
         SELECT 
             cc.calendar_cell_id, cc.class_at ,
             c.class_id, c.class_name,
@@ -74,7 +48,7 @@
 
     <!-- Class_ クラス -->
 
-    <select id="getClassById" parameterType="int" resultMap="classMap">
+    <select id="getClassById" parameterType="int" resultMap="com.privates.magu1436.cram_school_helper.mapper.EntityMapper.classMap">
         SELECT
             c.class_id, c.class_name,
             cd.class_detail_id, cd.student, cd.class_subject, cd.memo, cd.teaching_unit, cd.learned, cd.good_point, cd.issue, cd.comment
@@ -106,7 +80,7 @@
 
     <!-- ClassDetail クラス -->
     
-    <select id="getClassDetailById" parameterType="int" resultMap="classDetailMap">
+    <select id="getClassDetailById" parameterType="int" resultMap="com.privates.magu1436.cram_school_helper.mapper.EntityMapper.classDetailMap">
         SELECT
             cd.class_detail_id, 
             cd.student, 

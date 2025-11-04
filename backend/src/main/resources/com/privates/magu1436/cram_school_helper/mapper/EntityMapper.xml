@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.privates.magu1436.cram_school_helper.mapper.EntityMapper">
+    <resultMap id="calendarCellMap" type="com.privates.magu1436.cram_school_helper.entity.CalendarCell">
+        <id property="id" column="calendar_cell_id" />
+        <result  property="classAt" column="class_at"/>
+        <collection property="classes" resultMap="classMap" />
+    </resultMap>
+
+    <resultMap id="classMap" type="com.privates.magu1436.cram_school_helper.entity.Class_">
+        <id property="id" column="class_id" />
+        <result property="name" column="class_name" />
+        <collection property="classDetails" resultMap="classDetailMap" />
+    </resultMap>
+
+    <resultMap id="classDetailMap" type="com.privates.magu1436.cram_school_helper.entity.ClassDetail">
+        <id property="id" column="class_detail_id" />
+        <result property="student" column="student" />
+        <result property="subject" column="class_subject" />
+        <result property="memo" column="memo" />
+        <result property="unit" column="teaching_unit" />
+        <result property="learned" column="learned" />
+        <result property="goodPoint" column="good_point" />
+        <result property="issue" column="issue" />
+        <result property="comment" column="comment" /> 
+    </resultMap>
+</mapper>

@@ -9,7 +9,7 @@
             cd.class_detail_id, cd.student, cd.class_subject, cd.memo, cd.teaching_unit, cd.learned, cd.good_point, cd.issue, cd.comment
         FROM 
             classes c
-        INNER JOIN 
+        LEFT JOIN 
             class_details cd ON cd.class_id = c.class_id
         WHERE 
             c.class_id = #{id}

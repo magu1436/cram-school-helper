@@ -1,5 +1,6 @@
 import type { Setter, StateSet } from "@/types/state";
-import type { ClassDetail, StudentTab } from "./classRelated";
+import type { StudentTab } from "./classRelated";
+import type { ClassDetail } from "@/types/dataType";
 
 export type TextBoxProps = {
     title: string,

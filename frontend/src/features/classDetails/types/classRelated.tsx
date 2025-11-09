@@ -1,19 +1,10 @@
 import type { StateSet } from "@/types/state";
+import type { ClassDetail } from "@/types/dataType";
 
-export type Class = "X" | "Y" | "Z" | "A" | "B" | "C" | "D";
-
-export type ClassDetail = {
-    subject?: string,
-    memo?: string,
-    unit?: string,
-    learned?: string,
-    goodPoint?: string,
-    issue?: string,
-    comment?: string,
-};
+export type ClassName = "X" | "Y" | "Z" | "A" | "B" | "C" | "D";
 
 export type ClassTab = {
-    class: Class,
+    class: ClassName,
     tabStateSet: StateSet<StudentTab[]>,
 }
 

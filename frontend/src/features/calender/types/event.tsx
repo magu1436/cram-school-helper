@@ -1,8 +1,8 @@
-import type { Class } from "@/features/classDetails/types/classRelated"
+import type { ClassName } from "@/features/classDetails/types/classRelated"
 
 export type ClassInfo = {
     date: Date,
-    classes: Class[],
+    classes: ClassName[],
     id: number,
 }
 

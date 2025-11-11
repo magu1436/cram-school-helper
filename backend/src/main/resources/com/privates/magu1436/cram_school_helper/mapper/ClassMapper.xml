@@ -28,7 +28,7 @@
         LEFT JOIN 
             class_details cd ON cd.class_id = c.class_id
         LEFT JOIN
-            calendar_cells cc ON cc.calendarcell_id = c.calendar_cell_id
+            calendar_cells cc ON cc.calendar_cell_id = c.calendar_cell_id
         WHERE 
             cc.class_at = #{date}
     </select>

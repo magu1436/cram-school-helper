@@ -10,7 +10,7 @@ export type CalendarCell = {
 
 export type CalendarCellApiObj = {
     id: number,
-    classAt: string,
+    classAt: DateString,
     classes: ClassApiObj[],
 }
 
@@ -49,3 +49,5 @@ export type ClassDetailApiObj = {
     issue: string | null,
     comment: string | null,
 };
+
+export type DateString = string;

@@ -9,3 +9,5 @@ export const createComment = (
     const prompt = {subject, teachingUnit, learned, goodPoint, issue}
     return JSON.stringify(prompt);
 }
+
+export const getClassesByDate: 

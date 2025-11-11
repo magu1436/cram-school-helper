@@ -1,8 +1,7 @@
 import type { AxiosRequestConfig } from "axios";
 import axios from "./axios";
 import { useEffect, useState } from "react";
-
-type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
+import type { fetchReturnType, HttpMethod } from "@/types/fetchType";
 
 /**
  * `Axios` を利用したデータフェッチカスタムフック.
@@ -11,9 +10,9 @@ type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
  */
 const useFetch = <T,>(
     app: string,
-    method: HttpMethod,
-    body: {},
-) => {
+    method: HttpMethod = "GET",
+    body?: {},
+): fetchReturnType<T> => {
     
     const url = app.startsWith("/")? app : `/${app}`;
 

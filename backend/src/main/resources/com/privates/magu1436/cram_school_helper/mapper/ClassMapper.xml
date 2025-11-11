@@ -15,6 +15,24 @@
             c.class_id = #{id}
     </select>
 
+    <select 
+        id="getClassesByDate" 
+        parameterType="Date"
+        resultMap="com.privates.magu1436.cram_school_helper.mapper.EntityMapper.classMap"
+    >
+        SELECT
+            c.class_id, c.class_name,
+            cd.class_detail_id, cd.student, cd.class_subject, cd.memo, cd.teaching_unit, cd.learned, cd.good_point, cd.issue, cd.comment
+        FROM 
+            classes c
+        LEFT JOIN 
+            class_details cd ON cd.class_id = c.class_id
+        LEFT JOIN
+            calendar_cells cc ON cc.calendarcell_id = c.calendar_cell_id
+        WHERE 
+            cc.class_at = #{date}
+    </select>
+
     <insert 
         id="insertClass"
         useGeneratedKeys="true"

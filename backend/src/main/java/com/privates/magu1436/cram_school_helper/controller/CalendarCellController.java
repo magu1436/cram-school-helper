@@ -1,5 +1,6 @@
 package com.privates.magu1436.cram_school_helper.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,13 @@ public class CalendarCellController {
         CalendarCell cc = mapper.getCalendarCellById(id);
         return new ResponseEntity<>(cc, HttpStatus.OK);
     }
-    
+
+    @PostMapping("/create/{date}")
+    public ResponseEntity<Integer> createCalendarCell(@RequestBody String date){
+        CalendarCell cc = new CalendarCell();
+        cc.setClassAt(LocalDate.parse(date));
+        Integer id = mapper.insertCalendarCell(cc);
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
+    }
     
 }

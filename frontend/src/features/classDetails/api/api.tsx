@@ -18,13 +18,11 @@ export const createComment = (
 
 export const getClassesByDate = (date: Date): fetchReturnType<Class[]> => {
     const apiUrl = "/classes/getClassesByDate";
+    const dateUrl = "/" + formatDate(date, "YYYY-MM-DD")
 
     const {data, isLoading, error} = useFetch<ClassApiObj[]>(
-        apiUrl,
+        apiUrl + dateUrl,
         "GET",
-        {
-            date: formatDate(date, "YYYY-MM-DD")
-        },
     );
 
     const [ classes, setClasses ] = useState<Class[]>();

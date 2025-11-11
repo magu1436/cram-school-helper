@@ -17,7 +17,7 @@
 
     <select 
         id="getClassesByDate" 
-        parameterType="Date"
+        parameterType="String"
         resultMap="com.privates.magu1436.cram_school_helper.mapper.EntityMapper.classMap"
     >
         SELECT

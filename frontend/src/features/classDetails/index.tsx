@@ -24,25 +24,24 @@ export function ClassDetailsPage(){
 
     const [classTabs, setClassTabs] = useState<ClassTab[]>([]);
 
-    useEffect(() => {
-        if (!classes) return;
-        setClassTabs(
-            classes.map(c => {
-                const [studentTabs, setStudentTabs] = useState<StudentTab[]>(
-                    c.classDetails?.map(cd => {
-                        return {
-                            name: cd.student,
-                            classDetail: cd,
-                        }
-                    })
-                );
-                return {
-                    class: c.name,
-                    tabStateSet: {value: studentTabs, setter: setStudentTabs}
-                };
-            })
-        );
-    }, [classes]);
+    if (classes){
+            setClassTabs(
+                classes.map(c => {
+                    const [studentTabs, setStudentTabs] = useState<StudentTab[]>(
+                        c.classDetails?.map(cd => {
+                            return {
+                                name: cd.student,
+                                classDetail: cd,
+                            }
+                        })
+                    );
+                    return {
+                        class: c.name,
+                        tabStateSet: {value: studentTabs, setter: setStudentTabs}
+                    };
+                })
+            );
+    }
 
     return (
         <div  className={classNames("h-100")}>

@@ -1,6 +1,6 @@
 import type { Setter, StateSet } from "@/types/state";
 import type { StudentTab } from "./classRelated";
-import type { ClassDetail } from "@/types/dataType";
+import type { ClassDetail, Class } from "@/types/dataType";
 
 export type TextBoxProps = {
     title: string,
@@ -22,4 +22,15 @@ export type AddStudentTabModalProps = {
     visibleStateSet: StateSet<boolean>,
     studentTabsStateSet: StateSet<StudentTab[]>,
     keySetter: Setter<number>,
+}
+
+export type ClassTabFieldProps = {
+    classes?: Class[]
+}
+
+export type StudentTabFieldProps = {
+    classDetails: ClassDetail[],
+    referedStudentStateSet: StateSet<number | undefined>,
+    onAddClassDetail: () => void,
+    onDeleteClassDetail: () => void,
 }

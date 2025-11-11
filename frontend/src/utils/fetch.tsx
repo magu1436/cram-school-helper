@@ -1,12 +1,19 @@
+import type { AxiosRequestConfig } from "axios";
 import axios from "./axios";
 import { useEffect, useState } from "react";
+
+type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 /**
  * `Axios` を利用したデータフェッチカスタムフック.
  * @param app アプリケーション名
  * @returns 返却データを保持する連想配列
  */
-const useFetch = <T,>(app: string) => {
+const useFetch = <T,>(
+    app: string,
+    method: HttpMethod,
+    body: {},
+) => {
     
     const url = app.startsWith("/")? app : `/${app}`;
 
@@ -17,7 +24,12 @@ const useFetch = <T,>(app: string) => {
     useEffect(() => {
         const fetchData = async () => {
             try{
-                const res = await axios.get(url);
+                const config: AxiosRequestConfig = {
+                    url: url,
+                    method: method,
+                    data: body,
+                };
+                const res = await axios(config);
                 setDate(res.data);
             } catch (error) {
                 setError(error as Error);

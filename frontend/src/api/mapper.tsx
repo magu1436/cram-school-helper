@@ -22,7 +22,7 @@ export const toClass = (apiObj: ClassApiObj): Class => ({
 
 export const toClassDetail = (api: ClassDetailApiObj): ClassDetail => ({
     id: api.id,
-    student: (api.student? api.student: undefined),
+    student: api.student,
     subject: (api.subject? api.subject: undefined),
     memo: (api.memo? api.memo: undefined),
     unit: (api.unit? api.unit: undefined),

@@ -28,7 +28,7 @@ export type ClassApiObj = {
 
 export type ClassDetail = {
     id: number,
-    student?: string,
+    student: string,
     subject?: string,
     memo?: string,
     unit?: string,
@@ -40,7 +40,7 @@ export type ClassDetail = {
 
 export type ClassDetailApiObj = {
     id: number,
-    student: string | null,
+    student: string,
     subject: string | null,
     memo: string | null,
     unit: string | null,

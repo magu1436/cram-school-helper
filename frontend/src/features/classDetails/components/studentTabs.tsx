@@ -26,6 +26,7 @@ export const StudentTabs: FC<StudentTabsProps> = ({studentTabsStateSet}) => {
                 onSelect={(k)  => {onSelect(k, setStudentTabKey, setVisibleAddModal)}}
             >
                 {studentTabsStateSet.value.map((s, i) => {
+                    if (!s.classDetail) return;
                     return (
                         <Tab eventKey={i} title={s.name} key={s + String(i)}>
                             <ClassDetail {...s.classDetail} />

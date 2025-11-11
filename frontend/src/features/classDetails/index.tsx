@@ -2,12 +2,13 @@
 import { useParams } from "react-router-dom";
 import classNames from "classnames";
 import { Tab, Tabs } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
 
 import { formatDate } from "@/utils/dateformatter";
 import { StudentTabs } from "./components/studentTabs";
 import type { StudentTab, ClassTab } from "./types/classRelated";
+import { getClassesByDate } from "./api/api";
 
 export function ClassDetailsPage(){
 
@@ -19,26 +20,35 @@ export function ClassDetailsPage(){
 
     const date = new Date(dateQuery);
 
-    const [studentTabsC, setStudentTabsC] = useState<StudentTab[]>([
-        {name: "山田太郎"},
-        {name: "田中花子"},
-    ]);
+    const { data: classes, isLoading, error } = getClassesByDate(date);
 
-    const [studentTabsD, setStudentTabsD] = useState<StudentTab[]>([
-        {name: "リーパー"},
-        {name: "トレーサー"},
-    ]);
+    const [classTabs, setClassTabs] = useState<ClassTab[]>([]);
 
-    const classes: ClassTab[] = [
-        {class: "C", tabStateSet: {value: studentTabsC, setter: setStudentTabsC}},
-        {class: "D", tabStateSet: {value: studentTabsD, setter: setStudentTabsD}},
-    ]
+    useEffect(() => {
+        if (!classes) return;
+        setClassTabs(
+            classes.map(c => {
+                const [studentTabs, setStudentTabs] = useState<StudentTab[]>(
+                    c.classDetails?.map(cd => {
+                        return {
+                            name: cd.student,
+                            classDetail: cd,
+                        }
+                    })
+                );
+                return {
+                    class: c.name,
+                    tabStateSet: {value: studentTabs, setter: setStudentTabs}
+                };
+            })
+        );
+    }, [classes]);
 
     return (
         <div  className={classNames("h-100")}>
             <div>{formatDate(date, "YYYY年M月D日(曜)")}</div>
             <Tabs defaultActiveKey={0}>
-                {classes.map((c, i) => {
+                {classTabs.map((c, i) => {
                     return (
                         <Tab eventKey={i} title={c.class} key={i}>
                             <StudentTabs studentTabsStateSet={c.tabStateSet} />

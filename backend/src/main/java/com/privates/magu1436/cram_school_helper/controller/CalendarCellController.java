@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +43,7 @@ public class CalendarCellController {
     }
 
     @PostMapping("/create/{date}")
-    public ResponseEntity<Integer> createCalendarCell(@RequestBody String date){
+    public ResponseEntity<Integer> createCalendarCell(@PathVariable String date){
         CalendarCell cc = new CalendarCell();
         cc.setClassAt(LocalDate.parse(date));
         Integer id = mapper.insertCalendarCell(cc);

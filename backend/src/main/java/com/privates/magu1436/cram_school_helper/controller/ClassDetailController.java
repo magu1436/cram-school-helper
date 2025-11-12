@@ -20,7 +20,7 @@ public class ClassDetailController {
 
     private final ClassDetailMapper mapper;
 
-    @PostMapping("/createClassDetail")
+    @PostMapping("/create")
     public ResponseEntity<Integer> createClassDetail(CreateClassDetailForm form){
         Integer id = mapper.insertClassDetail(form);
         return new ResponseEntity<>(id, HttpStatus.CREATED);

@@ -4,6 +4,9 @@ import type { fetchReturnType } from "@/types/fetchType";
 import { formatDate } from "@/utils/dateformatter";
 import useFetch from "@/utils/fetch";
 import { useEffect, useState } from "react";
+import type { RegisterClassDetailForm } from "../types/api";
+import type { AxiosRequestConfig } from "axios";
+import axios from "@/utils/axios";
 
 export const createComment = (
     subject: string,
@@ -34,3 +37,16 @@ export const getClassesByDate = (date: Date): fetchReturnType<Class[]> => {
 
     return { data: classes, isLoading, error }
 };
+
+export const registerClassDetail = async (classId: number, student: string) => {
+    const config: AxiosRequestConfig = {
+        url: "classDetail/create",
+        method: "POST",
+        data: {
+            classId,
+            classDetail: { student },
+        },
+    };
+    const res = await axios<number>(config);
+    return res.data;
+}

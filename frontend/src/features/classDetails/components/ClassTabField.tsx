@@ -4,6 +4,7 @@ import { Tab, Tabs } from "react-bootstrap";
 import { StudentTabField } from "./StudentTabField";
 import { SimpleModal } from "@/components/simpleModal";
 import { TextBox } from "./textBox";
+import { registerClassDetail } from "../api/api";
 
 const ADD_BUTTON_KEY = "addButtonKey";
 
@@ -31,14 +32,18 @@ export const ClassTabField: FC<ClassTabFieldProps> = ({classes}) => {
         window.location.reload();
     }}, []);
 
-    const addClassDetail = () => {
+    const addClassDetail = async () => {
         const student = newClassDetailStudent;
         if (!student){
             alert("生徒名を入力してください");
             return;
         }
-        // const id = await registerClassDetail({student, classId: referedClass});
-        const id = 1000
+        if (!referedClass) {
+            const err = "Refered Class is undefined on processing addClassDetail.";
+            alert(err);
+            throw new Error(err);
+        }
+        const id = await registerClassDetail(referedClass, student);
         const targetClass = classes?.find(c => c.id == referedClass);
         if (!targetClass) throw new Error("Some error happened!");
         targetClass.classDetails = [...targetClass.classDetails, {id, student}];

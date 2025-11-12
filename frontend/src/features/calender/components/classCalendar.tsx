@@ -7,7 +7,7 @@ import FullCalendar from "@fullcalendar/react";
 import { formatDate } from "@/utils/dateformatter";
 import { SimpleModal } from "@/components/simpleModal";
 import { useNavigate } from "react-router-dom";
-import { createClass } from "../api/event";
+import { createCalendarCell } from "../api/event";
 import { getClassEvents } from "../api/connection";
 
 const ClassCalendarId = "ClassCalendar";
@@ -41,7 +41,7 @@ const ClassCalendar: FC<ClassCalenderProps> = ({
         setModalVisible(true);
     };
     const handleModalSubmit = async () => {
-        await createClass(clickedDate);
+        await createCalendarCell(clickedDate);
         nav(`/detail/${formatDate(clickedDate, "YYYY-MM-DD")}`)
     };
 

@@ -1,10 +1,18 @@
 import { formatDate } from "@/utils/dateformatter"
 import type { ClassEvent, ClassInfo } from "../types/event"
 import type { CalendarCell } from "@/types/dataType";
+import type { AxiosRequestConfig } from "axios";
+import axios from "@/utils/axios";
 
 
-export const createClass = async (date: Date) => {
-    // ここにフェッチ関数を作成
+export const createCalendarCell = async (date: Date) => {
+    
+    const url = "/calendar/create/" + formatDate(date, "YYYY-MM-DD");
+    const config: AxiosRequestConfig = {
+        url: url,
+        method: "POST",
+    };
+    await axios(config);
 }
 
 /**

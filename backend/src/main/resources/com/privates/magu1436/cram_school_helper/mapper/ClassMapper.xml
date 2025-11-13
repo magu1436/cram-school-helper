@@ -34,12 +34,15 @@
     </select>
 
     <insert 
-        id="insertClass"
+        id="insertClassAt"
         useGeneratedKeys="true"
-        keyProperty="id"
-        parameterType="com.privates.magu1436.cram_school_helper.entity.Class_"
+        keyProperty="class_.id"
+        parameterType="com.privates.magu1436.cram_school_helper.form.CreateClassForm"
     >
-        INSERT INTO classes (class_name) VALUES (#{name})
+        INSERT INTO 
+            classes (calendar_cell_id, class_name) VALUES (cc.calendar_cell_id, #{class_.name})
+        LEFT JOIN
+            calendar_cells cc ON cc.class_at = #{classAt}
     </insert>
 
     <update id="updateClass" parameterType="com.privates.magu1436.cram_school_helper.entity.Class_">

@@ -27,6 +27,17 @@
         WHERE cc.calendar_cell_id = #{id}
     </select>
 
+    <select id="getCalendarCellAt" resultMap="com.privates.magu1436.cram_school_helper.mapper.EntityMapper.calendarCellMap">
+        SELECT 
+            cc.calendar_cell_id, cc.class_at ,
+            c.class_id, c.class_name,
+            cd.class_detail_id, cd.student, cd.class_subject, cd.memo, cd.teaching_unit, cd.learned, cd.good_point, cd.issue, cd.comment
+        FROM calendar_cells cc 
+        LEFT JOIN classes c ON c.calendar_cell_id = cc.calendar_cell_id
+        LEFT JOIN class_details cd ON cd.class_id = c.class_id
+        WHERE cc.class_at = #{classAt}
+    </select>
+
     <insert 
         id="insertCalendarCell" 
         useGeneratedKeys="true"

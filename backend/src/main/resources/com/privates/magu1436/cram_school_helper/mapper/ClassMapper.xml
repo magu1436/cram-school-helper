@@ -40,13 +40,22 @@
         parameterType="com.privates.magu1436.cram_school_helper.form.CreateClassForm"
     >
         INSERT INTO 
-            classes (calendar_cell_id, class_name) VALUES (cc.calendar_cell_id, #{class_.name})
-        LEFT JOIN
-            calendar_cells cc ON cc.class_at = #{classAt}
+            classes (calendar_cell_id, class_name)
+        SELECT 
+            cc.calendar_cell_id, #{class_.name}
+        FROM
+            calendar_cells cc
+        WHERE
+            cc.class_at = #{classAt}
     </insert>
 
     <update id="updateClass" parameterType="com.privates.magu1436.cram_school_helper.entity.Class_">
-        UPDATE classes SET class_name VALUES (#{name}) WHERE class_id = #{id}
+        UPDATE
+            classes
+        SET
+            class_name = #{name}
+        WHERE
+            class_id = #{id}
     </update>
 
     <delete id="deleteClass" parameterType="int">

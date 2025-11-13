@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,8 +22,8 @@ public class ClassDetailController {
     private final ClassDetailMapper mapper;
 
     @PostMapping("/create")
-    public ResponseEntity<Integer> createClassDetail(CreateClassDetailForm form){
-        Integer id = mapper.insertClassDetail(form);
-        return new ResponseEntity<>(id, HttpStatus.CREATED);
+    public ResponseEntity<Integer> createClassDetail(@RequestBody CreateClassDetailForm form){
+        mapper.insertClassDetail(form);
+        return new ResponseEntity<>(form.getClassDetail().getId(), HttpStatus.CREATED);
     }
 }

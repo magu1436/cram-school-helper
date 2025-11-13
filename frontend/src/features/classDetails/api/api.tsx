@@ -4,7 +4,6 @@ import type { fetchReturnType } from "@/types/fetchType";
 import { formatDate } from "@/utils/dateformatter";
 import useFetch from "@/utils/fetch";
 import { useEffect, useState } from "react";
-import type { RegisterClassDetailForm } from "../types/api";
 import type { AxiosRequestConfig } from "axios";
 import axios from "@/utils/axios";
 

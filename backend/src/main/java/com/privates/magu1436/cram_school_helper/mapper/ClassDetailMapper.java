@@ -8,7 +8,7 @@ import com.privates.magu1436.cram_school_helper.form.CreateClassDetailForm;
 @Mapper
 public interface ClassDetailMapper {
     ClassDetail getClassDetailById(int id);
-    int insertClassDetail(CreateClassDetailForm classDetailForm);
+    void insertClassDetail(CreateClassDetailForm classDetailForm);
     void updateClassDetail(ClassDetail classDetail);
     void deleteClassDetail(int id);
 }

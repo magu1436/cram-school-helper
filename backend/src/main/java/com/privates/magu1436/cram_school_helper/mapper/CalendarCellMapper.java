@@ -12,7 +12,7 @@ public interface CalendarCellMapper {
     List<CalendarCell> getAllCalendarCells();
     CalendarCell getCalendarCellById(int id);
     CalendarCell getCalendarCellAt(LocalDate classAt);
-    int insertCalendarCell(CalendarCell calendarCell);
+    void insertCalendarCell(CalendarCell calendarCell);
     void updateCalendarCell(CalendarCell calendarCell);
     void deleteCalendarCellByIs(int id);
 }

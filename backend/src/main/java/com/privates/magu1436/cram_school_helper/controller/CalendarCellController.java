@@ -46,8 +46,8 @@ public class CalendarCellController {
     public ResponseEntity<Integer> createCalendarCell(@PathVariable String date){
         CalendarCell cc = new CalendarCell();
         cc.setClassAt(LocalDate.parse(date));
-        Integer id = mapper.insertCalendarCell(cc);
-        return new ResponseEntity<>(id, HttpStatus.CREATED);
+        mapper.insertCalendarCell(cc);
+        return new ResponseEntity<>(cc.getId(), HttpStatus.CREATED);
     }
     
 }

@@ -34,7 +34,7 @@ public class ClassController {
         return new ResponseEntity<>(classes, HttpStatus.OK);
     }
 
-    @PostMapping("/createClassAt")
+    @PostMapping("/createAt")
     public ResponseEntity<Integer> createClass(@RequestBody CreateClassForm form){
         classMapper.insertClassAt(form);
         return new ResponseEntity<>(form.getClass_().getId(), HttpStatus.CREATED);

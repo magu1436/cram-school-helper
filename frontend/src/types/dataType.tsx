@@ -1,4 +1,3 @@
-
 export type ClassName = 
     "X" | "Y" | "Z" | "A" | "B" | "C" | "D";
 

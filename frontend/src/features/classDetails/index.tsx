@@ -4,7 +4,6 @@ import classNames from "classnames";
 import "bootstrap/dist/css/bootstrap.min.css"
 
 import { formatDate } from "@/utils/dateformatter";
-import { getClassesByDate } from "./api/api";
 import { ClassTabField } from "./components/ClassTabField";
 
 export function ClassDetailsPage(){
@@ -17,12 +16,10 @@ export function ClassDetailsPage(){
 
     const date = new Date(dateQuery);
 
-    const { data, isLoading, error } = getClassesByDate(date);
-
     return (
         <div  className={classNames("h-100")}>
             <div>{formatDate(date, "YYYY年M月D日(曜)")}</div>
-            <ClassTabField classes={data} />
+            <ClassTabField date={date} />
         </div>
     )
 }

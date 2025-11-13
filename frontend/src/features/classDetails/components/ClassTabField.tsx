@@ -4,17 +4,25 @@ import { Tab, Tabs } from "react-bootstrap";
 import { StudentTabField } from "./StudentTabField";
 import { SimpleModal } from "@/components/simpleModal";
 import { TextBox } from "./textBox";
-import { registerClassDetail } from "../api/api";
+import { getClassesByDate, registerClassAt, registerClassDetail } from "../api/api";
+import type { ClassName } from "@/types/dataType";
 
 const ADD_BUTTON_KEY = "addButtonKey";
 
-export const ClassTabField: FC<ClassTabFieldProps> = ({classes}) => {
+export const ClassTabField: FC<ClassTabFieldProps> = ({date}) => {
+
+    const { data: classes, isLoading, error } = getClassesByDate(date);
+
+    const classNames: ClassName[] = ["X", "Y", "Z", "A", "B", "C", "D"];
 
     const [referedClass, setReferedClass] = useState<number>();
     const [referedStudent, setReferedStudent] = useState<number>();
+    const [visibleAddClassModal, setVisibleAddClassModal] = useState<boolean>(false);
     const [visibleAddClassDetailModal, setVisibleAddClassDetailModal] = useState<boolean>(false);
     const [visibleDeleteClassDetailModal, setVisibleDeleteClassDetailModal] = useState<boolean>(false);
     const [newClassDetailStudent, setNewClassDetailStudent] = useState<string>();
+    
+    let newClassName = classNames[0];
 
     const onDeleteClassDetail = () => {
         if (!classes) return;
@@ -27,10 +35,11 @@ export const ClassTabField: FC<ClassTabFieldProps> = ({classes}) => {
         // deleteClassDetail(referedStudent);
     }
 
-    const onAddClass = useMemo<() => void>(() => {return () => {
-        alert("未実装");
+    const onAddClass = async () => {
+        console.log("className: " + newClassName);
+        await registerClassAt(date, newClassName);
         window.location.reload();
-    }}, []);
+    }
 
     const addClassDetail = async () => {
         const student = newClassDetailStudent;
@@ -52,7 +61,7 @@ export const ClassTabField: FC<ClassTabFieldProps> = ({classes}) => {
 
     const onSelect = (k: string | null) => {
             if (k == ADD_BUTTON_KEY){
-                onAddClass();
+                setVisibleAddClassModal(true);
                 return;
             }
             const id = Number(k);
@@ -94,6 +103,22 @@ export const ClassTabField: FC<ClassTabFieldProps> = ({classes}) => {
                     title="+"
                 />
             </Tabs>
+
+            <SimpleModal
+                visibleStateSet={{value: visibleAddClassModal, setter: setVisibleAddClassModal}}
+                title="コマの追加"
+                submitButtonLabel="コマを追加"
+                submitFunc={onAddClass}
+            >
+                <div>追加するコマを選択</div>
+                <select 
+                    name="select-class" 
+                    id="class-selector"
+                    onChange={(e) => {newClassName = e.target.value as ClassName;}}
+                >
+                    {classNames.map(cn => <option value={cn}>{cn}</option>)}
+                </select>
+            </SimpleModal>
 
             <SimpleModal
                 visibleStateSet={{value: visibleAddClassDetailModal, setter: setVisibleAddClassDetailModal}}

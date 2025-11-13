@@ -25,7 +25,7 @@ export type AddStudentTabModalProps = {
 }
 
 export type ClassTabFieldProps = {
-    classes?: Class[]
+    date: Date,
 }
 
 export type StudentTabFieldProps = {

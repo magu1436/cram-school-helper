@@ -39,7 +39,7 @@
         keyProperty="id"
         parameterType="com.privates.magu1436.cram_school_helper.entity.Class_"
     >
-        INSERT classes (class_name) VALUES (#{name})
+        INSERT INTO classes (class_name) VALUES (#{name})
     </insert>
 
     <update id="updateClass" parameterType="com.privates.magu1436.cram_school_helper.entity.Class_">

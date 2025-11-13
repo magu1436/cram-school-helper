@@ -23,10 +23,10 @@
     <insert 
         id="insertClassDetail"
         useGeneratedKeys="true"
-        keyProperty="id"
+        keyProperty="classDetail.id"
         parameterType="com.privates.magu1436.cram_school_helper.form.CreateClassDetailForm"
     >
-        INSERT class_details
+        INSERT INTO class_details
             (class_id, student, class_subject, memo, teaching_unit, learned, good_point, issue, comment)
         VALUES
             (#{classId}, #{classDetail.student}, #{classDetail.subject}, #{classDetail.memo}, #{classDetail.unit}, #{classDetail.learned}, #{classDetail.goodPoint}, #{classDetail.issue}, #{classDetail.comment})

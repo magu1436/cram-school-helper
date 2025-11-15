@@ -49,7 +49,7 @@
             class_details_id = #{id}
     </update>
 
-    <delete id="deleteClassDetails" parameterType="int">
+    <delete id="deleteClassDetail" parameterType="int">
         DELETE FROM
             class_details
         WHERE

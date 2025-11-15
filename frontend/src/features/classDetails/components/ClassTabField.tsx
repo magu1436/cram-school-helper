@@ -4,7 +4,7 @@ import { Tab, Tabs } from "react-bootstrap";
 import { StudentTabField } from "./StudentTabField";
 import { SimpleModal } from "@/components/simpleModal";
 import { TextBox } from "./textBox";
-import { getClassesByDate, registerClassAt, registerClassDetail } from "../api/api";
+import { deleteClassDetail, getClassesByDate, registerClassAt, registerClassDetail } from "../api/api";
 import type { ClassName } from "@/types/dataType";
 
 const ADD_BUTTON_KEY = "addButtonKey";
@@ -38,13 +38,12 @@ export const ClassTabField: FC<ClassTabFieldProps> = ({date}) => {
     let newClassName: ClassName = "X";
 
     const onDeleteClassDetail = () => {
-        if (!classes) return;
+        if (!classes || !referedStudent) return;
         for (let c of classes) {
             c.classDetails = c.classDetails.filter(cd => cd.id != referedStudent);
         }
+        deleteClassDetail(referedStudent);
         setReferedStudent(undefined);
-        // 授業詳細削除APIの挿入
-        // deleteClassDetail(referedStudent);
     }
 
     const onAddClass = async () => {

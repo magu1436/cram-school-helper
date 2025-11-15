@@ -50,6 +50,14 @@ export const registerClassDetail = async (classId: number, student: string) => {
     return res.data;
 }
 
+export const deleteClassDetail = async(classDetailId: number) => {
+    const config: AxiosRequestConfig = {
+        url: "classDetail/delete/" + classDetailId,
+        method: "DELETE",
+    };
+    await axios(config);
+}
+
 export const registerClassAt = async (date: Date, name: ClassName) => {
     const config: AxiosRequestConfig = {
         url: "class/createAt",

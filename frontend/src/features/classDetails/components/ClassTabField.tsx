@@ -11,9 +11,22 @@ const ADD_BUTTON_KEY = "addButtonKey";
 
 export const ClassTabField: FC<ClassTabFieldProps> = ({date}) => {
 
-    const { data: classes, isLoading, error } = getClassesByDate(date);
+    const classPriority: {[key in ClassName]: number} = {
+        "X": 0,
+        "Y": 1,
+        "Z": 2,
+        "A": 3,
+        "B": 4,
+        "C": 5,
+        "D": 6,
+    }
 
-    const classNames: ClassName[] = ["X", "Y", "Z", "A", "B", "C", "D"];
+    const { data, isLoading, error } = getClassesByDate(date);
+
+    const classes = useMemo(() => {
+        if (!data) return undefined;
+        return [...data].sort((a, b) => classPriority[a.name] - classPriority[b.name]);
+    }, [data]);
 
     const [referedClass, setReferedClass] = useState<number>();
     const [referedStudent, setReferedStudent] = useState<number>();
@@ -22,11 +35,10 @@ export const ClassTabField: FC<ClassTabFieldProps> = ({date}) => {
     const [visibleDeleteClassDetailModal, setVisibleDeleteClassDetailModal] = useState<boolean>(false);
     const [newClassDetailStudent, setNewClassDetailStudent] = useState<string>();
     
-    let newClassName = classNames[0];
+    let newClassName: ClassName = "X";
 
     const onDeleteClassDetail = () => {
         if (!classes) return;
-        console.log(`id: ${referedStudent}`)
         for (let c of classes) {
             c.classDetails = c.classDetails.filter(cd => cd.id != referedStudent);
         }
@@ -36,7 +48,6 @@ export const ClassTabField: FC<ClassTabFieldProps> = ({date}) => {
     }
 
     const onAddClass = async () => {
-        console.log("className: " + newClassName);
         await registerClassAt(date, newClassName);
         window.location.reload();
     }
@@ -116,7 +127,7 @@ export const ClassTabField: FC<ClassTabFieldProps> = ({date}) => {
                     id="class-selector"
                     onChange={(e) => {newClassName = e.target.value as ClassName;}}
                 >
-                    {classNames.map(cn => <option value={cn}>{cn}</option>)}
+                    {Object.keys(classPriority).map(cn => <option value={cn}>{cn}</option>)}
                 </select>
             </SimpleModal>
 

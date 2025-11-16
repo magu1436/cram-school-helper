@@ -32,7 +32,7 @@
             (#{classId}, #{classDetail.student}, #{classDetail.subject}, #{classDetail.memo}, #{classDetail.unit}, #{classDetail.learned}, #{classDetail.goodPoint}, #{classDetail.issue}, #{classDetail.comment})
     </insert>
 
-    <update id="updateClassDetail" parameterType="com.privates.magu1436.cram_school_helper.form.UpdateClassDetail">
+    <update id="updateClassDetail" parameterType="com.privates.magu1436.cram_school_helper.form.UpdateClassDetailForm">
         UPDATE
             class_details
         SET

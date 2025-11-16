@@ -5,7 +5,7 @@ import com.privates.magu1436.cram_school_helper.entity.ClassDetail;
 import lombok.Data;
 
 @Data
-public class UpdateClassDetail {
+public class UpdateClassDetailForm {
     private int classId;
     private ClassDetail classDetail;
 }

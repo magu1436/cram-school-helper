@@ -1,5 +1,5 @@
 import { toClass } from "@/api/mapper";
-import type { Class, ClassApiObj, ClassName } from "@/types/dataType";
+import type { Class, ClassApiObj, ClassDetail, ClassName } from "@/types/dataType";
 import type { fetchReturnType } from "@/types/fetchType";
 import { formatDate } from "@/utils/dateformatter";
 import useFetch from "@/utils/fetch";
@@ -69,4 +69,14 @@ export const registerClassAt = async (date: Date, name: ClassName) => {
     };
     const res = await axios<number>(config);
     return res.data;
+}
+
+export const updateClassDetail = async (classDetail: ClassDetail) => {
+    const config: AxiosRequestConfig = {
+        url: "classDetail/update",
+        method: "PUT",
+        data: {...classDetail}
+    };
+
+    await axios(config);
 }

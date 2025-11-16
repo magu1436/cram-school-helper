@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.privates.magu1436.cram_school_helper.entity.ClassDetail;
 import com.privates.magu1436.cram_school_helper.form.CreateClassDetailForm;
 import com.privates.magu1436.cram_school_helper.form.UpdateClassDetailForm;
 import com.privates.magu1436.cram_school_helper.mapper.ClassDetailMapper;

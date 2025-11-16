@@ -32,21 +32,21 @@
             (#{classId}, #{classDetail.student}, #{classDetail.subject}, #{classDetail.memo}, #{classDetail.unit}, #{classDetail.learned}, #{classDetail.goodPoint}, #{classDetail.issue}, #{classDetail.comment})
     </insert>
 
-    <update id="updateClassDetail" parameterType="com.privates.magu1436.cram_school_helper.entity.ClassDetail">
+    <update id="updateClassDetail" parameterType="com.privates.magu1436.cram_school_helper.form.UpdateClassDetail">
         UPDATE
             class_details
         SET
             class_id = #{classId}, 
-            student = #{student}, 
-            class_subject = #{subject}, 
-            memo = #{memo}, 
-            teaching_unit = #{unit}, 
-            learned = #{learned}, 
-            good_point = #{goodPoint}, 
-            issue = #{issue}, 
-            comment = #{comment}
+            student = #{classDetail.student}, 
+            class_subject = #{classDetail.subject}, 
+            memo = #{classDetail.memo}, 
+            teaching_unit = #{classDetail.unit}, 
+            learned = #{classDetail.learned}, 
+            good_point = #{classDetail.goodPoint}, 
+            issue = #{classDetail.issue}, 
+            comment = #{classDetail.comment}
         WHERE
-            class_details_id = #{id}
+            class_details_id = #{classDetail.id}
     </update>
 
     <delete id="deleteClassDetail" parameterType="int">

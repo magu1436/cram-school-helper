@@ -13,6 +13,7 @@ export const StudentTabField: FC<StudentTabFieldProps> =({
     referedStudentStateSet, 
     onAddClassDetail,
     onDeleteClassDetail,
+    classId,
 }) => {
     const onSelect = (key: string | null) => {
         if (!key) throw new Error("StudentTabKey is null.");
@@ -37,7 +38,7 @@ export const StudentTabField: FC<StudentTabFieldProps> =({
                             key={cd.id}
                             className={StudentTabClassName}
                         >
-                            <ClassDetail {...cd} />
+                            <ClassDetail classDetail={cd} classId={classId} />
                             <Button
                                 onClick={onDeleteClassDetail}
                                 className="my-2"

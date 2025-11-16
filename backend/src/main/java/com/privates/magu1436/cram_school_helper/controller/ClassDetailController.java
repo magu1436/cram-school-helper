@@ -38,7 +38,7 @@ public class ClassDetailController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("update")
+    @PutMapping("/update")
     public ResponseEntity<Void> updateClassDetail(@RequestBody UpdateClassDetailForm form){
         mapper.updateClassDetail(form);
         return new ResponseEntity<>(HttpStatus.OK);

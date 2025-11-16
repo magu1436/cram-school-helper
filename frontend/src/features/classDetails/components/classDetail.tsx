@@ -10,19 +10,19 @@ const TEXTBOX_ROW = 3;
 
 
 export const ClassDetail: FC<ClassDetailProps> = (props) => {
-    const [memo, setMemo] = useState<string>(props.memo ? props.memo: "");
-    const [unit, setUnit] = useState<string>(props.unit ? props.unit: "");
-    const [learned, setLearned] = useState<string>(props.learned ? props.learned: "");
-    const [goodPoint, setGoodPoint] = useState<string>(props.goodPoint ? props.goodPoint: "");
-    const [issue, setIssue] = useState<string>(props.issue ? props.issue: "");
-    const [comment, setComment] = useState<string>(props.comment ? props.comment: "");
+    const [memo, setMemo] = useState<string>(props.classDetail.memo ? props.classDetail.memo: "");
+    const [unit, setUnit] = useState<string>(props.classDetail.unit ? props.classDetail.unit: "");
+    const [learned, setLearned] = useState<string>(props.classDetail.learned ? props.classDetail.learned: "");
+    const [goodPoint, setGoodPoint] = useState<string>(props.classDetail.goodPoint ? props.classDetail.goodPoint: "");
+    const [issue, setIssue] = useState<string>(props.classDetail.issue ? props.classDetail.issue: "");
+    const [comment, setComment] = useState<string>(props.classDetail.comment ? props.classDetail.comment: "");
 
-    const [subject, setSubject] = useState(props.subject ? props.subject: "");
+    const [subject, setSubject] = useState(props.classDetail.subject ? props.classDetail.subject: "");
 
     useEffect(() => {
         updateClassDetail({
-            id: props.id,
-            student: props.student,
+            id: props.classDetail.id,
+            student: props.classDetail.student,
             subject: subject,
             memo,
             unit,
@@ -30,7 +30,7 @@ export const ClassDetail: FC<ClassDetailProps> = (props) => {
             goodPoint,
             issue,
             comment,
-        });
+        }, props.classId);
     }, [memo, unit, learned, goodPoint, issue, comment, subject]);
     
     return (

@@ -1,6 +1,6 @@
 import type { Setter, StateSet } from "@/types/state";
 import type { StudentTab } from "./classRelated";
-import type { ClassDetail, Class } from "@/types/dataType";
+import type { ClassDetail} from "@/types/dataType";
 
 export type TextBoxProps = {
     title: string,
@@ -12,7 +12,10 @@ export type TextBoxProps = {
     readonly?: boolean,
 }
 
-export type ClassDetailProps = ClassDetail;
+export type ClassDetailProps = {
+    classId: number,
+    classDetail: ClassDetail,
+};
 
 export type StudentTabsProps = {
     studentTabsStateSet: StateSet<StudentTab[]>,
@@ -33,4 +36,5 @@ export type StudentTabFieldProps = {
     referedStudentStateSet: StateSet<number | undefined>,
     onAddClassDetail: () => void,
     onDeleteClassDetail: () => void,
+    classId: number,
 }

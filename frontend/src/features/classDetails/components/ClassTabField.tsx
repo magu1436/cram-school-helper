@@ -104,6 +104,7 @@ export const ClassTabField: FC<ClassTabFieldProps> = ({date}) => {
                                 referedStudentStateSet={{value: referedStudent, setter: setReferedStudent}}
                                 onAddClassDetail={() => {setVisibleAddClassDetailModal(true)}}
                                 onDeleteClassDetail={() => {setVisibleDeleteClassDetailModal(true)}}
+                                classId={c.id}
                             />
                         </Tab>
                     )

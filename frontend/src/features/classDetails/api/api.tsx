@@ -71,12 +71,14 @@ export const registerClassAt = async (date: Date, name: ClassName) => {
     return res.data;
 }
 
-export const updateClassDetail = async (classDetail: ClassDetail) => {
+export const updateClassDetail = async (classDetail: ClassDetail, classId: number) => {
     const config: AxiosRequestConfig = {
         url: "classDetail/update",
         method: "PUT",
-        data: {...classDetail}
+        data: {
+            classId,
+            classDetail,
+        },
     };
-
     await axios(config);
-}
+};

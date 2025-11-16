@@ -1,8 +1,8 @@
-import { useState, type FC } from "react"
+import { useEffect, useState, type FC } from "react"
 import { SubjectSelect } from "./subjectSelector";
 import { TextBox } from "./textBox";
 import { Button } from "react-bootstrap";
-import { createComment } from "@/features/classDetails/api/api";
+import { createComment, updateClassDetail } from "@/features/classDetails/api/api";
 import type { ClassDetailProps } from "@/features/classDetails/types/props";
 import classNames from "classnames";
 
@@ -18,6 +18,20 @@ export const ClassDetail: FC<ClassDetailProps> = (props) => {
     const [comment, setComment] = useState<string>(props.comment ? props.comment: "");
 
     const [subject, setSubject] = useState(props.subject ? props.subject: "");
+
+    useEffect(() => {
+        updateClassDetail({
+            id: props.id,
+            student: props.student,
+            subject: subject,
+            memo,
+            unit,
+            learned,
+            goodPoint,
+            issue,
+            comment,
+        });
+    }, [memo, unit, learned, goodPoint, issue, comment, subject]);
     
     return (
         <div className={classNames("d-flex", "flex-column")}>

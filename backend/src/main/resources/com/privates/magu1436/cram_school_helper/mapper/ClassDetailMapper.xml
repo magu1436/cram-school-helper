@@ -46,7 +46,7 @@
             issue = #{classDetail.issue}, 
             comment = #{classDetail.comment}
         WHERE
-            class_details_id = #{classDetail.id}
+            class_detail_id = #{classDetail.id}
     </update>
 
     <delete id="deleteClassDetail" parameterType="int">

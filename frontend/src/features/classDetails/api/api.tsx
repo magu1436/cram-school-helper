@@ -9,13 +9,18 @@ import axios from "@/utils/axios";
 
 export const createComment = (
     subject: string,
-    teachingUnit: string,
+    unit: string,
     learned: string,
     goodPoint: string,
     issue: string,
 ) => {
-    const prompt = {subject, teachingUnit, learned, goodPoint, issue}
-    return JSON.stringify(prompt);
+    const prompt = {subject, unit, learned, goodPoint, issue}
+    const { data, isLoading } = useFetch<string>(
+        "/openai/createComment",
+        "POST",
+        prompt,
+    );
+    return { data, isLoading };
 };
 
 export const getClassesByDate = (date: Date): fetchReturnType<Class[]> => {

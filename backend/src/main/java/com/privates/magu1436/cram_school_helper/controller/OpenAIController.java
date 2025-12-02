@@ -1,14 +1,20 @@
 package com.privates.magu1436.cram_school_helper.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openai.client.OpenAIClient;
 import com.openai.client.okhttp.OpenAIOkHttpClient;
 import com.openai.models.responses.Response;
 import com.openai.models.responses.ResponseCreateParams;
+import com.openai.models.responses.ResponseInputItem;
 import com.privates.magu1436.cram_school_helper.form.FormForCreatingComment;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequiredArgsConstructor
 @RequestMapping("/openai")
 public class OpenAIController {
+
+    private OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
     private String model = "gpt-4o-mini";
     private String prompt = """
@@ -55,14 +63,68 @@ public class OpenAIController {
             """;
 
     @PostMapping("/createComment")    
-    public ResponseEntity<String> createComment(@RequestBody FormForCreatingComment form){
-        OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+    public ResponseEntity<String> createComment(@RequestBody FormForCreatingComment form) throws Exception{
+        List<ResponseInputItem> inputs = new ArrayList<>();
+        inputs.add(
+            ResponseInputItem.ofMessage(
+                ResponseInputItem.Message.builder()
+                    .role(ResponseInputItem.Message.Role.SYSTEM)
+                    .addInputTextContent(this.prompt)
+                    .build()   
+            )
+        );
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(form);
+        inputs.add(
+            ResponseInputItem.ofMessage(
+                ResponseInputItem.Message.builder()
+                    .role(ResponseInputItem.Message.Role.USER)
+                    .addInputTextContent(json)
+                    .build()   
+            )
+        );
 
         ResponseCreateParams params = ResponseCreateParams.builder()
-                                            .model(this.model)
-                                            .input(this.prompt)
-                                            .build();
-        Response response = client.responses().create(params);
-        return ResponseEntity.ok(response.toString());
+            .model(this.model)
+            .input(ResponseCreateParams.Input.ofResponse(inputs))
+            .build();
+        Response response = this.client.responses().create(params);
+        return ResponseEntity.ok(extractOutputText(response));
+    }
+
+        private String extractOutputText(Response res){
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.valueToTree(res);
+            JsonNode outputArray = root.path("output");
+            if (!outputArray.isArray() || outputArray.isEmpty()){
+                return "";
+            }
+
+            JsonNode firstOutput = outputArray.get(0);
+            JsonNode contentArray = firstOutput.path("content");
+            if (!contentArray.isArray() || contentArray.isEmpty()){
+                return "";
+            }
+
+            JsonNode firstContent = contentArray.get(0);
+            JsonNode textNode = firstContent.path("text");
+            JsonNode valueNode = textNode.path("value");
+            if (valueNode.isTextual()){
+                return valueNode.asText();
+            }
+
+            if (textNode.isTextual()){
+                return textNode.asText();
+            }
+
+            return "";
+        } catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
     }
 }
+
+

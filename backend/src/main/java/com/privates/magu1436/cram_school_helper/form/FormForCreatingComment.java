@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class FormForCreatingComment {
     private String subject;
-    private String teachingUnit;
+    private String unit;
     private String learned;
     private String goodPoint;
     private String issue;

@@ -78,16 +78,15 @@ export const ClassDetail: FC<ClassDetailProps> = (props) => {
                 rows={TEXTBOX_ROW}
                 className="my-1"
             />
-            <Button onClick={() => {
-                const {data, isLoading} = createComment(
+            <Button onClick={ async () => {
+                const newComment = await createComment(
                     subject,
                     unit,
                     learned,
                     goodPoint,
                     issue,
                 );
-                useEffect(() => (setComment(data || "")), [isLoading]);
-
+                setComment(newComment);
             }}>ChatGPTで作成</Button>
             <div>{memo}</div>
         </div>

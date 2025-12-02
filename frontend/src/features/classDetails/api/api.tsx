@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import type { AxiosRequestConfig } from "axios";
 import axios from "@/utils/axios";
 
-export const createComment = (
+export const createComment = async (
     subject: string,
     unit: string,
     learned: string,
@@ -15,12 +15,12 @@ export const createComment = (
     issue: string,
 ) => {
     const prompt = {subject, unit, learned, goodPoint, issue}
-    const { data, isLoading } = useFetch<string>(
-        "/openai/createComment",
-        "POST",
-        prompt,
-    );
-    return { data, isLoading };
+    const res = await axios<string>({
+        url: "/openai/createComment",
+        method: "POST",
+        data: prompt,
+    });
+    return res.data
 };
 
 export const getClassesByDate = (date: Date): fetchReturnType<Class[]> => {
